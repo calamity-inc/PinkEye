@@ -1,0 +1,3 @@
+﻿  Building 'Drv64' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
+tracewpp : error wpp: Unable to open file 'trace.h': CreateFile error 2.
+tracewpp : error wpp: Fatal: CreateFile

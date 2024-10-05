@@ -1,0 +1,9 @@
+﻿  Main.c
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 12 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+detours_x64.lib(detours.obj) : warning LNK4099: PDB '' was not found with 'detours_x64.lib(detours.obj)' or at ''; linking object as if no debug info
+detours_x64.lib(disasm.obj) : warning LNK4099: PDB '' was not found with 'detours_x64.lib(disasm.obj)' or at ''; linking object as if no debug info
+detours_x64.lib(modules.obj) : warning LNK4099: PDB '' was not found with 'detours_x64.lib(modules.obj)' or at ''; linking object as if no debug info
+  PinkEye_Shellcode.vcxproj -> C:\Users\C5\source\repos\PinkEye_Shellcode\x64\Release\PinkEye_Shellcode.dll

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Document Version="2">
+    <Protection InputFileName="PinkEyeInjector.dll" Options="262344" VMCodeSectionName=".???" VMComplexity="100" VMInstances="10">
+        <Messages>
+            <Message Id="0">1</Message>
+            <Message Id="1">2</Message>
+            <Message Id="2">3</Message>
+            <Message Id="3">4</Message>
+            <Message Id="4">5</Message>
+        </Messages>
+        <Folders />
+        <Procedures>
+            <Procedure MapAddress="DoesWindowExist" Options="0" />
+            <Procedure MapAddress="InjectDll" Options="0" />
+            <Procedure MapAddress="LoadDriver" Options="0" />
+            <Procedure MapAddress="wcsncmp" Options="0" />
+            <Procedure MapAddress="UnloadDriver" Options="0" />
+            <Procedure MapAddress="strcpy_s" Options="0" />
+            <Procedure MapAddress="strncmp" Options="0" />
+            <Procedure MapAddress="strncpy_s" Options="0" />
+            <Procedure MapAddress="InjectDllAtEntrypoint" Options="0" />
+            <Procedure MapAddress="InjectDll_PinkEyeless" Options="0" />
+            <Procedure MapAddress="InjectDll_NoUnload" Options="0" />
+        </Procedures>
+        <Objects />
+    </Protection>
+    <Script />
+</Document>

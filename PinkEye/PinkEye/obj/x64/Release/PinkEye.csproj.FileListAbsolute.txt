@@ -1,0 +1,26 @@
+C:\Users\C5\source\repos\PinkEye\PinkEye\bin\x64\Release\PinkEye.exe.config
+C:\Users\C5\source\repos\PinkEye\PinkEye\bin\x64\Release\PinkEye.exe
+C:\Users\C5\source\repos\PinkEye\PinkEye\bin\x64\Release\PinkEye.pdb
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\x64\Release\PinkEye.csproj.AssemblyReference.cache
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\x64\Release\PinkEye.Disclaimer.resources
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\x64\Release\PinkEye.LauncherMenu.resources
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\x64\Release\PinkEye.PinkEye.resources
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\x64\Release\PinkEye.Properties.Resources.resources
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\x64\Release\PinkEye.csproj.GenerateResource.cache
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\x64\Release\PinkEye.csproj.CoreCompileInputs.cache
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\x64\Release\PinkEye.csproj.Fody.CopyLocal.cache
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\x64\Release\PinkEye.exe
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\x64\Release\PinkEye.pdb
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\obj\x64\Release\PinkEye.csproj.AssemblyReference.cache
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\obj\x64\Release\PinkEye.Disclaimer.resources
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\obj\x64\Release\PinkEye.LauncherMenu.resources
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\obj\x64\Release\PinkEye.PinkEye.resources
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\obj\x64\Release\PinkEye.Properties.Resources.resources
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\obj\x64\Release\PinkEye.csproj.GenerateResource.cache
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\obj\x64\Release\PinkEye.csproj.CoreCompileInputs.cache
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\obj\x64\Release\PinkEye.csproj.Fody.CopyLocal.cache
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\bin\x64\Release\PinkEye.exe.config
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\bin\x64\Release\PinkEye.exe
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\bin\x64\Release\PinkEye.pdb
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\obj\x64\Release\PinkEye.exe
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEye\PinkEye\obj\x64\Release\PinkEye.pdb

@@ -1,0 +1,13 @@
+C:\Users\C5\source\repos\PinkEye\PinkEye\bin\Debug\PinkEye.exe.config
+C:\Users\C5\source\repos\PinkEye\PinkEye\bin\Debug\PinkEye.exe
+C:\Users\C5\source\repos\PinkEye\PinkEye\bin\Debug\PinkEye.pdb
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\Debug\PinkEye.csproj.AssemblyReference.cache
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\Debug\PinkEye.Disclaimer.resources
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\Debug\PinkEye.LauncherMenu.resources
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\Debug\PinkEye.PinkEye.resources
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\Debug\PinkEye.Properties.Resources.resources
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\Debug\PinkEye.csproj.GenerateResource.cache
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\Debug\PinkEye.csproj.CoreCompileInputs.cache
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\Debug\PinkEye.csproj.Fody.CopyLocal.cache
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\Debug\PinkEye.exe
+C:\Users\C5\source\repos\PinkEye\PinkEye\obj\Debug\PinkEye.pdb

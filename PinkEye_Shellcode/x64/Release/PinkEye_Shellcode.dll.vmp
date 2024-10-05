@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Document Version="2">
+    <Protection InputFileName="PinkEye_Shellcode.dll" Options="262344" VMCodeSectionName=".???" VMComplexity="100" VMInstances="10">
+        <Messages>
+            <Message Id="0">1</Message>
+            <Message Id="1">2</Message>
+            <Message Id="2">3</Message>
+            <Message Id="3">4</Message>
+            <Message Id="4">5</Message>
+        </Messages>
+        <Folders />
+        <Procedures>
+            <Procedure MapAddress="GetSignerInfo" Options="0" />
+            <Procedure MapAddress="VerifyCustomSignature" Options="0" />
+            <Procedure MapAddress="HookedNtCreateFile" Options="0" />
+            <Procedure MapAddress="CodeEntryPoint" Options="0" />
+        </Procedures>
+        <Objects />
+    </Protection>
+    <Script />
+</Document>

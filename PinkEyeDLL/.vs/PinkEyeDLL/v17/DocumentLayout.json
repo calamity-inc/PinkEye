@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEyeDLL\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D02E0F0E-A0A5-48E9-8E51-048FB56656B8}|PinkEyeDLL\\PinkEyeDLL.vcxproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEyeDLL\\PinkEyeDLL\\dllmain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D02E0F0E-A0A5-48E9-8E51-048FB56656B8}|PinkEyeDLL\\PinkEyeDLL.vcxproj|solutionrelative:PinkEyeDLL\\dllmain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "dllmain.cpp",
+              "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEyeDLL\\PinkEyeDLL\\dllmain.cpp",
+              "RelativeDocumentMoniker": "PinkEyeDLL\\dllmain.cpp",
+              "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEyeDLL\\PinkEyeDLL\\dllmain.cpp",
+              "RelativeToolTip": "PinkEyeDLL\\dllmain.cpp",
+              "ViewState": "AQIAAI8AAAAAAAAAAAAiwKMAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-27T01:31:04.848Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

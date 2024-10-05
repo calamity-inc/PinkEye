@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>By downloading, installing, or utilizing the PinkEye mod menu launcher, you acknowledge and agree to the following terms:
+
+Use at Your Own Risk: The PinkEye mod menu launcher is intended for use at your own discretion. The developers and associated entities do not guarantee the safety or performance of the mod and are not responsible for any consequences that may arise from its use.
+
+Account Safety: You understand that using mods, including PinkEye, may violate the terms of service of the game and can result in account suspensions, permanent bans, or other penalties imposed by the game developers or publishers. The PinkEye development team will not be held liable for any actions taken against your account as a result of using this mod.
+
+Kernel Driver Warning: The PinkEye mod menu launcher utilizes kernel drivers to function. While these drivers are essential for the operation of the mod, they may introduce risks, including system instability, crashes, or data loss. Users are advised to proceed with caution and ensure their systems are secure and up-to-date. The developers cannot be held responsible for any adverse effects caused by the use of these kernel drivers.
+
+System Stability: Modifying game files or utilizing third-party software can lead to unexpected issues, including software crashes, system instability, and Blue Screen of Death (BSOD) errors. The developers are not responsible for any damage to your hardware, software, or data that may occur as a result of using PinkEye.
+
+No Guarantees: The functionality of PinkEye is not guaranteed. While efforts are made to ensure its proper operation, the developers are not responsible for any bugs, glitches, or incompatibilities that may arise.
+
+Community Guidelines: You agree to adhere to community guidelines and ethical standards while using the mod. Any misuse or harmful actions that result from using PinkEye are solely your responsibility.
+
+By proceeding with the use of PinkEye, you confirm that you have read, understood, and agreed to this disclaimer in its entirety. If you do not agree with these terms, please refrain from using the mod.</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAHCAAAAEAIACoDgAAFgAAACgAAAAcAAAAQAAAAAEAIAAAAAAAAA4AAMMOAADDDgAAAAAAAAAA
+        AAAbFxtjGRUazRgTGNwbFxzcHBcc3BoVGtwYExjcGBMY3BkVGtwZFRrcFxMY3BgUGdwYFBncGhYb3BcT
+        GNwYFBncFxIX3BcSF9wYExjcGxcc3BkUGdwZFBncGxcc3BcTGNwXEhfcFxIX3BkVGs4bFxtlGhYb6jgz
+        OP9RTVL/Hhkf/xgTGf8zLzT/VFBV/1BMUP86NTr/Pjk+/1tXW/9NSk7/R0RI/y4pL/9bV1v/S0dM/15a
+        X/9dWl7/VFBU/yIeI/9FQkb/Qz9E/yIeI/9WU1f/Xlpe/1xZXf81MDb/GhUb6xgTGf91cnX/4ODg/42K
+        jf+DgIP/iIaJ/9HR0v/EwsT/qqmq/83Mzf/m5eb/u7q7/9PS0/+2tLb/sbCx/4aEh//o6Oj/tbO0/5SS
+        lP8vKzD/u7q7/7SytP85NTr/2NjZ/8fGxv+sq6z/TUlO/xkUGv8YExn/dnN2/+no6f+1s7X/6urq/7u5
+        u//R0dH/xcTF/+/u7/+lpKX/1dXV/728vv/e3t7/2tna/3p3ev91c3b/7Ozs/7m4uf+Ylpj/iYaJ/9HQ
+        0f/Qz9D/kI6R/9zb3P/Kysr/sK+w/01JTf8ZFBr/GxYc/zs3O/9oZmj/Z2Vn/11bXf9FQ0X/Wlha/1ZU
+        Vv9cWlz/LSsu/1pYWf9UUlT/T0xP/0E+Qf9XVVj/Qj9C/2dlZ/9lYmX/X1xf/2FfYf9DQEP/RUJF/2Ff
+        Yf9jYGL/ZmRm/2RiZP83Mzf/GxUc/xwXHf8dFR//KhA0/y0QOf8tEDn/LhI7/y4ROv8uETr/LRE5/zAT
+        PP8uETr/LRE5/yoRM/8qEjP/KREy/yoSM/8oEDH/KBAx/ykRMf8pETH/KhIz/yoSM/8pETL/KRAx/ykQ
+        Mf8mES7/HRUf/xwXHf8aFxn/RBFa/58D4P+kA+f/owPn/6MD5/+jA+f/owPn/6MD5/+kA+f/ogPk/4wE
+        xP9+Ba7/fgWu/34Frv9+Ba7/fgWu/34Frv9+Ba7/fgWu/34Frv9+Ba7/fgWu/34Frv9/Ba7/fAWq/zsR
+        S/8aFxv/GRcY/1UPc/+1AP//tQD+/7UA/v+1AP7/tQD+/7UA/v+1AP//swD8/50C3P+LAsH/igLA/4oC
+        wP+KAsD/igLA/4oCv/+JA77/iQO9/4kDvf+JA73/iQO9/4kDvf+JA73/iQO9/4oDvv9ID13/Ghca/xkX
+        GP9UD3L/tAD9/7QA/f+0AP3/tAD9/7QA/f+0AP3/swD8/5sC2v+ABrD/cAuW/2EPf/9ZEHP/WRBz/2EP
+        f/9wC5b/gAav/4kDvf+JA77/iAO8/4gDvP+IA7z/iAO8/4gDvP+JA73/Rw9c/xoXGv8ZFxj/VA9y/7QA
+        /f+0AP3/tAD9/7QA/f+1AP7/swD8/4sHwP9TEmr/MRg2/yIbIP8hIB3/JSUh/yUlIf8hIB3/Ihsg/zEY
+        Nv9SE2n/eQik/4kDvf+IA7z/iAO8/4gDvP+IA7z/iQO9/0cPXP8aFxr/GRcY/1QPcv+0AP3/tAD9/7QA
+        /f+1AP7/rwL1/3APl/8sGS//IyIe/0tLR/+FhYP/rq6t/8HBwP/BwcD/rq6t/4WFg/9MTEj/IyMe/ywZ
+        L/9eEHv/hQS4/4kDvf+IA7z/iAO8/4kDvf9HD1z/Ghca/xkXGP9UD3L/tAD9/7QA/f+1AP7/rALx/18T
+        fP8gHB7/RUVB/6mpqP/r6+v//v7+///////////////////////+/v7/7Ozs/6qqqf9FRUL/IBwd/08U
+        Y/+EBbX/iQO9/4gDvP+JA73/Rw9c/xoXGv8ZFxj/VA9y/7QA/f+0AP3/sQH4/2MShP8fHRz/YWFe/9zc
+        3P///////f39//7+/v///////v7+//7+/v///////v7+//39/f//////3d3c/2JiX/8fHRz/UhNn/4cE
+        uv+IA7z/iQO9/0cPXP8aFxr/GRcY/1QPcv+0AP3/tgD//4AMr/8jGyH/W1pX/+bm5f///////f39//z8
+        /P/a2tn/pKSj/4WEg/+FhIL/pKSi/9ra2f/8/Pz//f39///////m5ub/XFtZ/yIbH/9mDob/iQO+/4kD
+        vf9HD1z/Ghca/xkXGP9UD3L/tQD+/6YE6f88GEf/Nzcy/9HR0P///////f39//Hx8f+SkpD/OTg2/yAe
+        HP8cGhj/HBoY/x8eHP85NzX/kZGQ//Hx8P/9/f3//////9LS0f84ODP/NBg7/4AGr/+JA77/Rw9c/xoX
+        Gv8ZFxj/VA9y/7YA//98Dan/Hx0c/4uKif/9/f3//f39//X19f99fXv/IR8d/x4cGv8gHhz/IB4c/yAe
+        HP8gHhz/Hhwa/yEfHf98fHr/9PT0//39/f/9/f3/jIyK/yAdHP9jD4L/igLA/0cPXP8aFxr/GRcY/1QP
+        cv+xAfr/TxRm/y8xKv/T09L//v7///7+/v+rq6r/JCMh/x8dG/8gHhz/IB4c/yAeHP8gHhz/IB4c/yAe
+        HP8fHRv/JCIg/6qqqf/+/v7//v7+/9TU0/8wMSz/QxVS/4gEu/9HD1z/Ghca/xkXGP9VDnP/pgTp/zUX
+        Pv9TVE//8vLy//39/f/y8vL/WFdV/x0bGP8gHhz/IB4c/yAeHP8gHhz/IB4c/yAeHP8gHhz/IB4c/x0b
+        GP9XVlT/8vLx//39/f/z8/P/VVVR/y8YNP+ABrD/SA9d/xoXGv8ZFxj/Vg50/5sG2f8pGCv/cHBt//z8
+        /P/+/v7/2dnZ/zQyMP8fHRv/IB4c/yAeHP8gHhz/IB4c/yAeHP8gHhz/Hx0b/x4cGv8eHBr/MzIw/9nY
+        2P/+/v7//Pz8/3Jyb/8mGSb/eQil/0gPXv8aFxr/GRcY/1YOdP+XB9L/JRkn/3t7eP/9/f3//////87O
+        zv8sKyj/Hx0b/yAeHP8gHhz/IB4c/yAeHP8gHhz/Hx0b/y0rKf9BQD7/JCIg/yspJ//Nzcz///////7+
+        /v98fHr/Ixkj/3YJoP9ID17/Ghca/xkXGP9WDnT/mwbZ/ykZLP9wcW7//Pz8//7+/v/Z2dn/NDMw/x8d
+        G/8gHhz/IB4c/yAeHP8gHhz/IB4c/yIgHv+cnJv/6Ojo/2hnZf8wLyz/2NjY//7+/v/8/Pz/cnJv/yYZ
+        Jv95CKT/SA9e/xoXGv8ZFxj/VQ5z/6YE6f81Fz7/VFRQ//Pz8v/9/f3/8vLy/1hXVf8dGxj/IB4c/yAe
+        HP8gHhz/IB4c/yAeHP8iIB7/nZyb/+np6f9mZmT/VFNR//Ly8f/9/f3/8/Pz/1VVUv8vGDT/gQaw/0gP
+        Xf8aFxr/GRcY/1QPcv+xAfr/UBVm/zAxK//T09P//v7+//7+/v+rq6r/JyUj/yAeHP8gHhz/IB4c/yAe
+        HP8gHhz/Hx0b/y0rKf9BQD7/Kykn/6qpqP/+/v7//v7+/9TU1P8xMiz/QxVR/4gEvP9ID1//Ghca/xkX
+        GP9UD3L/tgD//3wNqf8gHRz/jIyK//39/f//////6urp/1ZVU/8dHBj/Hh4Z/x4fGP8eHxn/Hh8Z/x4f
+        GP8dHRj/GxkW/1VUUv/p6en///////7+/v+NjYv/Hx0c/2MPgv+aAtn/Uw9w/xkXGf8ZFxj/VA9y/7UA
+        /v+mBOn/PBhH/zc4M//Q0M//zc3M/2JiX/8nJyL/KB0p/0IZUf9bFHf/aRGM/2kRjP9bFHf/QhhR/ykc
+        Kf8nJyL/YWFe/8zMy//R0dD/ODk0/zQYPP+QBcn/sgD7/1YOdP8ZFxj/GRcY/1QPcv+0AP3/tgD//4AM
+        r/8kHSP/RkZD/zc3M/8lGiX/WhN1/5IIyv+sAvL/tAD+/7YA//+2AP//tAD+/6wC8v+SCMr/WhN2/yUa
+        Jf83NzL/R0ZD/yMdIf92DaH/swD7/7QA/v9VDnT/GRcY/xkXGP9UD3L/tAD9/7QA/f+xAfj/ZBKD/x0d
+        Gf80GTv/hQu3/7IB+v+2AP//tQD+/7QA/f+0AP3/tAD9/7QA/f+0AP7/tgD//7IB+v+GC7j/NBk8/x0d
+        Gf9hEoH/sAH3/7UA/v+0AP3/VQ50/xkXGP8ZFxj/VA9y/7QA/f+0AP3/tQD+/6sC8f9sEZD/kQjJ/7YA
+        //+0AP3/tAD9/7QA/f+0AP3/tAD9/7QA/f+0AP3/tAD9/7QA/f+0AP3/tgD//5IIyv9sEZD/qwLw/7UA
+        /v+0AP3/tAD9/1UOdP8ZFxj/GRcY/1QPcv+0AP3/tAD9/7QA/f+1AP7/tAD9/7UA/v+0AP3/tAD9/7QA
+        /f+0AP3/tAD9/7QA/f+0AP3/tAD9/7QA/f+0AP3/tAD9/7QA/f+1AP7/tAD9/7UA/v+0AP3/tAD9/7QA
+        /f9VDnT/GRcY/xkXGP9PEGv/sgD7/7QA/v+0AP7/tAD+/7QA/v+0AP7/tAD+/7QA/v+0AP7/tAD+/7QA
+        /v+0AP7/tAD+/7QA/v+0AP7/tAD+/7QA/v+0AP7/tAD+/7QA/v+0AP7/tAD+/7QA/v+yAPv/UA9s/xkX
+        GP8bFxv1KBUv/1IPbv9YDnf/WA53/1gOd/9YDnf/WA53/1gOd/9YDnf/WA53/1gOd/9YDnf/WA53/1gO
+        d/9YDnf/WA53/1gOd/9YDnf/WA53/1gOd/9YDnf/WA53/1gOd/9YDnf/Ug9v/ygVL/8bFxv1GxcbjBsX
+        G/QZFxn/GRcZ/xkXGf8ZFxn/GRcZ/xkXGf8ZFxn/GRcZ/xkXGf8ZFxn/GRcZ/xkXGf8ZFxn/GRcZ/xkX
+        Gf8ZFxn/GRcZ/xkXGf8ZFxn/GRcZ/xkXGf8ZFxn/GRcZ/xkXGf8bFxv0GxccjAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+</value>
+  </data>
+</root>

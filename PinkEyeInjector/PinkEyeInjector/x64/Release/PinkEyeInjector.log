@@ -1,0 +1,29 @@
+﻿  Main.c
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(34,57): warning C4113: 'FARPROC' differs in parameter lists from 'HOOKPROC'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(40,38): warning C4047: 'function': 'WPARAM' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(40,38): warning C4024: 'PostThreadMessageW': different types for formal and actual parameter 3
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(40,44): warning C4047: 'function': 'LPARAM' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(40,44): warning C4024: 'PostThreadMessageW': different types for formal and actual parameter 4
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(15,11): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(76,57): warning C4113: 'FARPROC' differs in parameter lists from 'HOOKPROC'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(82,38): warning C4047: 'function': 'WPARAM' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(82,38): warning C4024: 'PostThreadMessageW': different types for formal and actual parameter 3
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(82,44): warning C4047: 'function': 'LPARAM' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(82,44): warning C4024: 'PostThreadMessageW': different types for formal and actual parameter 4
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(57,11): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(130,38): warning C4047: 'function': 'WPARAM' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(130,38): warning C4024: 'PostThreadMessageW': different types for formal and actual parameter 3
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(130,44): warning C4047: 'function': 'LPARAM' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(130,44): warning C4024: 'PostThreadMessageW': different types for formal and actual parameter 4
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(98,11): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(298,62): warning C4047: 'function': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(298,62): warning C4024: 'CreateRemoteThread': different types for formal and actual parameter 3
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(298,142): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(298,142): warning C4024: 'CreateRemoteThread': different types for formal and actual parameter 6
+C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\PinkEyeInjector\Main.c(287,11): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+     Creating library C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\x64\Release\PinkEyeInjector.lib and object C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\x64\Release\PinkEyeInjector.exp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 10 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  PinkEyeInjector.vcxproj -> C:\Users\C5\source\repos\PinkEye Stuff\PinkEyeInjector\x64\Release\PinkEyeInjector.dll
