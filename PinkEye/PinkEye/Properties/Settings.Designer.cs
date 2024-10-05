@@ -68,5 +68,17 @@ namespace PinkEye.Properties {
                 this["Drivers"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoInject {
+            get {
+                return ((bool)(this["AutoInject"]));
+            }
+            set {
+                this["AutoInject"] = value;
+            }
+        }
     }
 }

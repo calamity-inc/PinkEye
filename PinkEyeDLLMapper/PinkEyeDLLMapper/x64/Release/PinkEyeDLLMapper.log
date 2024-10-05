@@ -1,0 +1,16 @@
+﻿  Main.c
+C:\Users\C5\source\repos\PinkEyeDLLMapper\PinkEyeDLLMapper\Main.c(42,54): warning C4013: 'RvaToOffset' undefined; assuming extern returning int
+C:\Users\C5\source\repos\PinkEyeDLLMapper\PinkEyeDLLMapper\Main.c(62,1): warning C4142: 'RvaToOffset': benign redefinition of type
+C:\Users\C5\source\repos\PinkEyeDLLMapper\PinkEyeDLLMapper\Main.c(99,39): warning C4047: 'function': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEyeDLLMapper\PinkEyeDLLMapper\Main.c(99,39): warning C4024: 'CreateThread': different types for formal and actual parameter 2
+C:\Users\C5\source\repos\PinkEyeDLLMapper\PinkEyeDLLMapper\Main.c(99,65): warning C4047: 'function': 'LPTHREAD_START_ROUTINE' differs in levels of indirection from 'LPBYTE'
+C:\Users\C5\source\repos\PinkEyeDLLMapper\PinkEyeDLLMapper\Main.c(99,65): warning C4024: 'CreateThread': different types for formal and actual parameter 3
+C:\Users\C5\source\repos\PinkEyeDLLMapper\PinkEyeDLLMapper\Main.c(99,100): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEyeDLLMapper\PinkEyeDLLMapper\Main.c(99,100): warning C4024: 'CreateThread': different types for formal and actual parameter 5
+C:\Users\C5\source\repos\PinkEyeDLLMapper\PinkEyeDLLMapper\Main.c(120,9): warning C4244: 'return': conversion from 'LRESULT' to 'int', possible loss of data
+     Creating library C:\Users\C5\source\repos\PinkEyeDLLMapper\x64\Release\PinkEyeDLLMapper.lib and object C:\Users\C5\source\repos\PinkEyeDLLMapper\x64\Release\PinkEyeDLLMapper.exp
+  Generating code
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 5 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  PinkEyeDLLMapper.vcxproj -> C:\Users\C5\source\repos\PinkEyeDLLMapper\x64\Release\PinkEyeDLLMapper.dll

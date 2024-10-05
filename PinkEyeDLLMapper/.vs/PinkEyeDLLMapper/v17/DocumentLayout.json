@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\C5\\source\\repos\\PinkEyeDLLMapper\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4B981AD8-F4C1-41DC-9A44-42E6CF4CAE70}|PinkEyeDLLMapper\\PinkEyeDLLMapper.vcxproj|C:\\Users\\C5\\source\\repos\\PinkEyeDLLMapper\\PinkEyeDLLMapper\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4B981AD8-F4C1-41DC-9A44-42E6CF4CAE70}|PinkEyeDLLMapper\\PinkEyeDLLMapper.vcxproj|solutionrelative:PinkEyeDLLMapper\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D2AC503-2307-4502-99E9-D16F291D4894}|PinkEyeMapperShellcode\\PinkEyeMapperShellcode.vcxproj|C:\\Users\\C5\\source\\repos\\PinkEyeDLLMapper\\PinkEyeMapperShellcode\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7D2AC503-2307-4502-99E9-D16F291D4894}|PinkEyeMapperShellcode\\PinkEyeMapperShellcode.vcxproj|solutionrelative:PinkEyeMapperShellcode\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Main.c",
+              "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEyeDLLMapper\\PinkEyeMapperShellcode\\Main.c",
+              "RelativeDocumentMoniker": "PinkEyeMapperShellcode\\Main.c",
+              "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEyeDLLMapper\\PinkEyeMapperShellcode\\Main.c",
+              "RelativeToolTip": "PinkEyeMapperShellcode\\Main.c",
+              "ViewState": "AQIAAEIBAAAAAAAAAAAiwEwBAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-10-05T06:37:36.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Main.c",
+              "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEyeDLLMapper\\PinkEyeDLLMapper\\Main.c",
+              "RelativeDocumentMoniker": "PinkEyeDLLMapper\\Main.c",
+              "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEyeDLLMapper\\PinkEyeDLLMapper\\Main.c",
+              "RelativeToolTip": "PinkEyeDLLMapper\\Main.c",
+              "ViewState": "AQIAAE4AAAAAAAAAAAAAAF0AAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-10-05T05:19:06.759Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

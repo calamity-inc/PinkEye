@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace PinkEye
 {
@@ -344,6 +345,50 @@ Connection: Close
         {
             this.WindowState = FormWindowState.Minimized;
         }
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+        private struct SharedData
+        {
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Program.MAX_PATH)]
+            public string dllPath;
+        }
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr CreateFileMapping(IntPtr hFile, IntPtr lpAttributes, uint flProtect, uint dwMaximumSizeHigh, uint dwMaximumSizeLow, string lpName);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr MapViewOfFile(IntPtr hFileMappingObject, uint dwDesiredAccess, uint dwFileOffsetHigh, uint dwFileOffsetLow, uint dwNumberOfBytesToMap);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool UnmapViewOfFile(IntPtr lpBaseAddress);
+
+        private static void StartSharedMemoryMap(string local_DllPath)
+        {
+            IntPtr hMapFile = CreateFileMapping(IntPtr.Zero, IntPtr.Zero, 0x04, 0, (uint)Marshal.SizeOf(typeof(SharedData)), Program.Server_SharedMemoryMap_Name);
+            if (hMapFile == IntPtr.Zero)
+            {
+                Environment.Exit(-1);
+            }
+            else
+            {
+                IntPtr pData = MapViewOfFile(hMapFile, 0x02, 0, 0, (uint)Marshal.SizeOf(typeof(SharedData)));
+                if (pData == IntPtr.Zero)
+                {
+                    CloseHandle(hMapFile);
+                    Environment.Exit(-1);
+                }
+                else
+                {
+                    SharedData sharedData = new SharedData
+                    {
+                        dllPath = local_DllPath
+                    };
+                    Marshal.StructureToPtr(sharedData, pData, false);
+                    UnmapViewOfFile(pData);
+                }
+            }
+    }
 
         private void PinkEye_Load(object sender, EventArgs e)
         {
@@ -697,14 +742,29 @@ Connection: Close
                     timer1.Stop();
                     guna2CircleProgressBar1.AnimationSpeed = 150.6f;
 
-                    Process[] local_gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
-                    Process[] local_gtaProcessList = Process.GetProcessesByName(@"GTA5");
-                    Process[] local_BEProcessList = Process.GetProcessesByName(@"BEService");
-                    if (local_gtaBEProcessList.Length != 0 || local_gtaProcessList.Length != 0 || local_BEProcessList.Length != 0)
+                    if (Properties.Settings.Default.AutoInject == true)
                     {
-                        SystemSounds.Hand.Play();
-                        MessageBox.Show(@"Please close GTAV before attempting to inject.", Program.PinkEyeApp_Name);
-                        Process.GetCurrentProcess().Kill();
+                        Process[] local_gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
+                        Process[] local_gtaProcessList = Process.GetProcessesByName(@"GTA5");
+                        Process[] local_BEProcessList = Process.GetProcessesByName(@"BEService");
+                        if (local_gtaBEProcessList.Length != 0 || local_gtaProcessList.Length != 0 || local_BEProcessList.Length != 0)
+                        {
+                            SystemSounds.Hand.Play();
+                            MessageBox.Show(@"Please close GTAV before attempting to inject.", Program.PinkEyeApp_Name);
+                            Process.GetCurrentProcess().Kill();
+                        }
+                    }
+                    else
+                    {
+                        Process[] local_gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
+                        Process[] local_gtaProcessList = Process.GetProcessesByName(@"GTA5");
+                        Process[] local_BEProcessList = Process.GetProcessesByName(@"BEService");
+                        if (local_gtaBEProcessList.Length == 0 || local_gtaProcessList.Length == 0 || local_BEProcessList.Length == 0)
+                        {
+                            SystemSounds.Hand.Play();
+                            MessageBox.Show(@"Please open GTAV and load into Story Mode before attempting to inject.", Program.PinkEyeApp_Name);
+                            Process.GetCurrentProcess().Kill();
+                        }
                     }
 
                     Program.RandomFileName_Length = Program.random.Next(6, 30); //randomize file name length
@@ -715,11 +775,14 @@ Connection: Close
 
                     string StandDLL_DestPath = Program.currentTempFolderPath + Program.StandDLL_Name;
 
+                    string PinkEyeDLLMapper_DestPath = Program.currentTempFolderPath + Program.RandomString(Program.RandomFileName_Length) + @".dll";
+
                     try
                     {
                         File.Copy(currentBinPath + @"Stand " + Program.StandVersion.Split(':')[1] + @".dll", StandDLL_DestPath, true);
                         Properties.Settings.Default.Dlls.Add(StandDLL_DestPath);
                         Properties.Settings.Default.Save();
+                        StartSharedMemoryMap(StandDLL_DestPath);
                     }
                     catch
                     {
@@ -727,6 +790,22 @@ Connection: Close
                         {
                             SystemSounds.Hand.Play();
                             MessageBox.Show($"(0) Failed to copy local dependency \"{Program.StandDLL_Name}\" to the Temp folder.", Program.PinkEyeApp_Name);
+                        });
+                        Process.GetCurrentProcess().Kill();
+                    }
+
+                    try
+                    {
+                        File.Copy(currentBinPath + @"PinkEyeDLLMapper.dll", PinkEyeDLLMapper_DestPath, true);
+                        Properties.Settings.Default.Dlls.Add(PinkEyeDLLMapper_DestPath);
+                        Properties.Settings.Default.Save();
+                    }
+                    catch
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            SystemSounds.Hand.Play();
+                            MessageBox.Show($"(1) Failed to copy local dependency \"{PinkEyeDLLMapper_DestPath}\" to the Temp folder.", Program.PinkEyeApp_Name);
                         });
                         Process.GetCurrentProcess().Kill();
                     }
@@ -855,6 +934,9 @@ Connection: Close
                         //shellCode = null;
                         //GC.Collect();
 
+                        //Thread.Sleep(5000); //(UserMode) Increase wait before injecting into BEService if needed, or disable if not needed/if this casues any issues
+                        Thread.Sleep(15000); //(UserMode) Increase wait before injecting into BEService if needed, or disable if not needed/if this casues any issues
+
                         bool BEInjectionStatus = SendRequest(Program.Stand_Key);
                         if (BEInjectionStatus == false)
                         {
@@ -864,7 +946,8 @@ Connection: Close
                         //Thread.Sleep(5000); //Increase wait time after GTAV window has been found before injection if needed
                         Thread.Sleep(15000); //(UserMode) Increase wait time after GTAV window has been found before injection if needed
 
-                        int injectionStatus = InjectDll_NoUnload(@"Grand Theft Auto V", StandDLL_DestPath, @"Deez");
+                        //int injectionStatus = InjectDll_NoUnload(@"Grand Theft Auto V", StandDLL_DestPath, @"Deez");
+                        int injectionStatus = InjectDll_NoUnload(@"Grand Theft Auto V", PinkEyeDLLMapper_DestPath, @"SfcClose");
                         if (injectionStatus == 1)
                         {
                             Thread.Sleep(2000);

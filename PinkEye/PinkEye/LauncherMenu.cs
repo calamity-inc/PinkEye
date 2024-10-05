@@ -31,33 +31,58 @@ namespace PinkEye
         {
             if (versionOutdated == true)
             {
+                checkBox1.Enabled = false;
                 guna2Button1.Enabled = false;
                 guna2Button1.Text = @"This version of Stand/GTAV is not currently supported.";
             }
             else if (updateConnectionFailed == true)
             {
+                checkBox1.Enabled = false;
                 guna2Button1.Enabled = false;
                 guna2Button1.Text = @"Failed to connect to update server.";
             }
+            checkBox1.Checked = Properties.Settings.Default.AutoInject;
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            Process[] gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
-            Process[] gtaProcessList = Process.GetProcessesByName(@"GTA5");
-            Process[] BEProcessList = Process.GetProcessesByName(@"BEService");
-            if (gtaBEProcessList.Length == 0 && gtaProcessList.Length == 0 && BEProcessList.Length == 0)
+            if (Properties.Settings.Default.AutoInject == true)
             {
-                this.Hide();
-                PinkEye pinkEye = new PinkEye();
-                pinkEye.Name = Program.PinkEyeApp_Name;
-                pinkEye.Text = Program.PinkEyeApp_Name;
-                pinkEye.Show();
+                Process[] gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
+                Process[] gtaProcessList = Process.GetProcessesByName(@"GTA5");
+                Process[] BEProcessList = Process.GetProcessesByName(@"BEService");
+                if (gtaBEProcessList.Length == 0 && gtaProcessList.Length == 0 && BEProcessList.Length == 0)
+                {
+                    this.Hide();
+                    PinkEye pinkEye = new PinkEye();
+                    pinkEye.Name = Program.PinkEyeApp_Name;
+                    pinkEye.Text = Program.PinkEyeApp_Name;
+                    pinkEye.Show();
+                }
+                else
+                {
+                    SystemSounds.Hand.Play();
+                    MessageBox.Show(@"Please close GTAV before attempting to inject.", Program.PinkEyeApp_Name);
+                }
             }
             else
             {
-                SystemSounds.Hand.Play();
-                MessageBox.Show(@"Please close GTAV before attempting to inject.", Program.PinkEyeApp_Name);
+                Process[] gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
+                Process[] gtaProcessList = Process.GetProcessesByName(@"GTA5");
+                Process[] BEProcessList = Process.GetProcessesByName(@"BEService");
+                if (gtaBEProcessList.Length == 0 && gtaProcessList.Length == 0 && BEProcessList.Length == 0)
+                {
+                    SystemSounds.Hand.Play();
+                    MessageBox.Show(@"Please open GTAV and load into Story Mode before attempting to inject.", Program.PinkEyeApp_Name);
+                }
+                else
+                {
+                    this.Hide();
+                    PinkEye pinkEye = new PinkEye();
+                    pinkEye.Name = Program.PinkEyeApp_Name;
+                    pinkEye.Text = Program.PinkEyeApp_Name;
+                    pinkEye.Show();
+                }
             }
         }
 
@@ -130,6 +155,12 @@ namespace PinkEye
                     MessageBox.Show(@"Failed to uninstall! Try closing the Rockstar Launcher and GTAV and try again.");
                 }
             }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AutoInject = checkBox1.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

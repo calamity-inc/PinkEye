@@ -32,6 +32,7 @@
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // guna2Button1
@@ -45,7 +46,7 @@
             this.guna2Button1.FillColor = System.Drawing.Color.Fuchsia;
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.Location = new System.Drawing.Point(12, 12);
+            this.guna2Button1.Location = new System.Drawing.Point(12, 54);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(1064, 152);
             this.guna2Button1.TabIndex = 0;
@@ -63,7 +64,7 @@
             this.guna2Button2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button2.ForeColor = System.Drawing.Color.White;
-            this.guna2Button2.Location = new System.Drawing.Point(12, 170);
+            this.guna2Button2.Location = new System.Drawing.Point(12, 212);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.Size = new System.Drawing.Size(1064, 152);
             this.guna2Button2.TabIndex = 1;
@@ -73,17 +74,31 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(177, 353);
+            this.label1.Location = new System.Drawing.Point(177, 395);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(734, 32);
             this.label1.TabIndex = 2;
             this.label1.Text = "Massive thanks to @lemonhazeman for helping me test :)";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(12, 12);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(812, 36);
+            this.checkBox1.TabIndex = 3;
+            this.checkBox1.Text = "Automatic Injection (Disable this if you have issues injecting)";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // LauncherMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1088, 397);
+            this.ClientSize = new System.Drawing.Size(1088, 450);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.guna2Button2);
             this.Controls.Add(this.guna2Button1);
@@ -105,5 +120,6 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

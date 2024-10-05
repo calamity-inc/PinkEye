@@ -26,7 +26,7 @@ namespace PinkEye
         //internal static string StandVersion = @"1.9.3:24.9.9";
         internal static string StandVersion = @"";
 
-        internal const string DeadManSwitch = @"1.4.4.4";
+        internal const string DeadManSwitch = @"1.4.4.5";
 
         internal const string PINKEYE_API_KEY = @"wRqzrDtSnKOuCqmEEEuyuEWLrePuzYZqxaqvbJGyBskUeWEpoA";
 
@@ -36,6 +36,9 @@ namespace PinkEye
 
         internal static int RandomFileName_Length = 12;
 
+        internal static string Server_SharedMemoryMap_Name = @"vJenGTEfTdKtUvJenGTEfTdKtUzOVIcBFAFrDTHHxYfmAEhBjmRagSMtwupfmpmzOVIcBFAFrDTHHxYfmAEhBjmvJenGTEfTdKtUvJenGTEfTdKtUzOVIcBFAFrDTHHxYfmAEhBjmRagSMtwupfmpmzOVIcBFAFrDTHHxYfmAEhBjmRagSMtwupfmpmRagSMtwupfmpm";
+
+        internal const int MAX_PATH = 260;
 
         internal static Random random = new Random();
 

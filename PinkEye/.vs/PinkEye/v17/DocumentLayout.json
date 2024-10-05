@@ -15,8 +15,8 @@
       "RelativeMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|solutionrelative:pinkeye\\launchermenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEye\\pinkeye\\disclaimer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|solutionrelative:pinkeye\\disclaimer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEye\\pinkeye\\launchermenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|solutionrelative:pinkeye\\launchermenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEye\\pinkeye\\disclaimer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -27,8 +27,8 @@
       "RelativeMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|solutionrelative:pinkeye\\pinkeye.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEye\\pinkeye\\launchermenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|solutionrelative:pinkeye\\launchermenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEye\\pinkeye\\disclaimer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{39EB9F91-883A-40B7-8EFA-F5CC2D8DA8DD}|PinkEye\\PinkEye.csproj|solutionrelative:pinkeye\\disclaimer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +42,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Disclaimer.cs",
               "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEye\\PinkEye\\Disclaimer.cs",
               "RelativeDocumentMoniker": "PinkEye\\Disclaimer.cs",
@@ -60,14 +60,14 @@
               "RelativeDocumentMoniker": "PinkEye\\LauncherMenu.cs",
               "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEye\\PinkEye\\LauncherMenu.cs",
               "RelativeToolTip": "PinkEye\\LauncherMenu.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAYwC0AAABAAAAA",
+              "ViewState": "AQIAADsAAAAAAAAAAAASwEMAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-20T09:01:14.248Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "LauncherMenu.cs [Design]",
               "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEye\\PinkEye\\LauncherMenu.cs",
               "RelativeDocumentMoniker": "PinkEye\\LauncherMenu.cs",
@@ -84,7 +84,7 @@
               "RelativeDocumentMoniker": "PinkEye\\PinkEye.cs",
               "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEye\\PinkEye\\PinkEye.cs",
               "RelativeToolTip": "PinkEye\\PinkEye.cs",
-              "ViewState": "AQIAAMEAAAAAAAAAAAASwMcAAAA3AAAA",
+              "ViewState": "AQIAAE0DAAAAAAAAAAASwFkDAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-20T08:41:01.491Z",
               "EditorCaption": ""
@@ -120,7 +120,7 @@
               "RelativeDocumentMoniker": "PinkEye\\Program.cs",
               "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEye\\PinkEye\\Program.cs",
               "RelativeToolTip": "PinkEye\\Program.cs",
-              "ViewState": "AQIAAHsAAAAAAAAAAAAiwKoAAAA1AAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAABwAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-20T06:24:09.97Z",
               "EditorCaption": ""
