@@ -24,27 +24,17 @@ C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\ObCallbacks.h(37,88): warning
 C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\ObCallbacks.h(37,36): warning C4100: 'RegistrationContext': unreferenced formal parameter
   (compiling source file 'Driver.c')
   
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\IATHook.h(32,13): warning C4996: 'ExAllocatePoolWithTag': ExAllocatePoolWithTag is deprecated, use ExAllocatePool2.
-  (compiling source file 'Driver.c')
-  
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\IATHook.h(195,44): warning C4305: 'type cast': truncation from 'char *' to 'USHORT'
-  (compiling source file 'Driver.c')
-  
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(117,51): warning C4242: 'function': conversion from 'SIZE_T' to 'ULONG', possible loss of data
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(165,35): warning C4152: nonstandard extension, function/data pointer conversion in expression
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(235,109): warning C4152: nonstandard extension, function/data pointer conversion in expression
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(240,12): warning C4101: 'status': unreferenced local variable
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(285,30): warning C4996: 'ExAllocatePoolWithTag': ExAllocatePoolWithTag is deprecated, use ExAllocatePool2.
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(294,58): warning C4996: 'ExAllocatePoolWithTag': ExAllocatePoolWithTag is deprecated, use ExAllocatePool2.
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(270,14): warning C4101: 'k': unreferenced local variable
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(277,14): warning C4189: 'RetVolume': local variable is initialized but not referenced
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(275,17): warning C4189: 'InstanceList': local variable is initialized but not referenced
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(278,34): warning C4101: 'postCallBack': unreferenced local variable
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(278,8): warning C4101: 'monCallBack': unreferenced local variable
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(276,8): warning C4189: 'NumberInstancesReturned': local variable is initialized but not referenced
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(270,11): warning C4101: 'j': unreferenced local variable
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(278,21): warning C4101: 'preCallBack': unreferenced local variable
-C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(324,40): warning C4100: 'DriverObject': unreferenced formal parameter
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(429,30): warning C4996: 'ExAllocatePoolWithTag': ExAllocatePoolWithTag is deprecated, use ExAllocatePool2.
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(438,58): warning C4996: 'ExAllocatePoolWithTag': ExAllocatePoolWithTag is deprecated, use ExAllocatePool2.
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(414,14): warning C4101: 'k': unreferenced local variable
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(421,14): warning C4189: 'RetVolume': local variable is initialized but not referenced
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(419,17): warning C4189: 'InstanceList': local variable is initialized but not referenced
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(422,34): warning C4101: 'postCallBack': unreferenced local variable
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(422,8): warning C4101: 'monCallBack': unreferenced local variable
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(420,8): warning C4189: 'NumberInstancesReturned': local variable is initialized but not referenced
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(414,11): warning C4101: 'j': unreferenced local variable
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(422,21): warning C4101: 'preCallBack': unreferenced local variable
+C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\Driver.c(468,40): warning C4100: 'DriverObject': unreferenced formal parameter
 C:\Users\C5\source\repos\PinkEye Stuff\Drv64\Drv64\ObCallbacks.h(72,1): warning C4715: 'GetCallbackListOffset': not all control paths return a value
   Drv64.vcxproj -> C:\Users\C5\source\repos\PinkEye Stuff\Drv64\x64\Release\Drv64.sys
   Done Adding Additional Store

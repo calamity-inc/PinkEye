@@ -1,5 +1,7 @@
 #include <Windows.h>
+#include <shlwapi.h>
 
+#pragma comment(lib, "shlwapi.lib")
 #pragma comment(lib, "Advapi32.lib")
 #pragma comment(lib, "user32.lib")
 
@@ -234,7 +236,8 @@ EXTERN_C __declspec(dllexport) DWORD LoadDriver(const char* windowName, const ch
 {
     HWND hwnd = FindWindowA(NULL, windowName);
 
-    if (hwnd != NULL)
+    //if (hwnd != NULL)
+    if (hwnd == NULL)
     {
         return 10;
     }
@@ -307,4 +310,83 @@ EXTERN_C __declspec(dllexport) DWORD InjectDll_PinkEyeless(const char* windowNam
     InternalInjectDll(windowName, mainDllPath);
     //InjectDllAtEntrypoint(windowName, driverDllPath2);
     return 1;
+}
+
+EXTERN_C __declspec(dllexport) DWORD InjectDll_LoadLibrary(const char* windowName, const char* mainDllPath)
+{
+    InternalInjectDll(windowName, mainDllPath);
+    return 1;
+}
+
+DWORD RvaToOffset(LPBYTE image, DWORD rva)
+{
+    PIMAGE_NT_HEADERS ntHeaders = (PIMAGE_NT_HEADERS)(image + ((PIMAGE_DOS_HEADER)image)->e_lfanew);
+    PIMAGE_SECTION_HEADER sections = (PIMAGE_SECTION_HEADER)((LPBYTE)&ntHeaders->OptionalHeader + ntHeaders->FileHeader.SizeOfOptionalHeader);
+
+    if (rva < sections[0].PointerToRawData)
+    {
+        return rva;
+    }
+    else
+    {
+        for (WORD i = 0; i < ntHeaders->FileHeader.NumberOfSections; i++)
+        {
+            if (rva >= sections[i].VirtualAddress && rva < sections[i].VirtualAddress + sections[i].SizeOfRawData)
+            {
+                return rva - sections[i].VirtualAddress + sections[i].PointerToRawData;
+            }
+        }
+
+        return 0;
+    }
+}
+
+DWORD GetExecutableFunction(LPBYTE image, LPCSTR functionName)
+{
+    PIMAGE_EXPORT_DIRECTORY exportDirectory;
+    PIMAGE_NT_HEADERS64 ntHeaders = (PIMAGE_NT_HEADERS64)(image + ((PIMAGE_DOS_HEADER)image)->e_lfanew);
+    exportDirectory = (PIMAGE_EXPORT_DIRECTORY)(image + RvaToOffset(image, ntHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress));
+
+    LPDWORD nameDirectory = (LPDWORD)(image + RvaToOffset(image, exportDirectory->AddressOfNames));
+    LPWORD nameOrdinalDirectory = (LPWORD)(image + RvaToOffset(image, exportDirectory->AddressOfNameOrdinals));
+
+    for (DWORD i = 0; i < exportDirectory->NumberOfNames; i++)
+    {
+        if (StrStrA((PCHAR)(image + RvaToOffset(image, *nameDirectory)), functionName))
+        {
+            return RvaToOffset(image, *(LPDWORD)(image + RvaToOffset(image, exportDirectory->AddressOfFunctions) + *nameOrdinalDirectory * sizeof(DWORD)));
+        }
+
+        nameDirectory++;
+        nameOrdinalDirectory++;
+    }
+
+    return 0;
+}
+
+EXTERN_C __declspec(dllexport) DWORD MapSainan(unsigned char* rawData, DWORD rawDataSize, DWORD processID)
+{
+    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processID);
+
+    SIZE_T stubSize = (SIZE_T)rawDataSize;
+    unsigned char* stubShellcode = rawData;
+
+    DWORD entryPoint = GetExecutableFunction((LPBYTE)stubShellcode, "SainanViolation");
+    if (entryPoint)
+    {
+        LPBYTE allocatedStubMemory = (LPBYTE)VirtualAllocEx(hProcess, NULL, stubSize, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+        if (allocatedStubMemory)
+        {
+            SIZE_T bytesWritten = 0;
+            WriteProcessMemory(hProcess, allocatedStubMemory, stubShellcode, stubSize, &bytesWritten);
+            HANDLE hThread = CreateRemoteThread(hProcess, NULL, 0, allocatedStubMemory + entryPoint, allocatedStubMemory, 0, NULL);
+            if (hThread)
+            {
+                CloseHandle(hProcess);
+                return 1;
+            }
+        }
+    }
+
+    return 10;
 }

@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{E1D977DB-37A3-4B99-B6AD-B6D1E0ED117D}|Drv64\\Drv64.vcxproj|solutionrelative:Drv64\\Driver.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E1D977DB-37A3-4B99-B6AD-B6D1E0ED117D}|Drv64\\Drv64.vcxproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\ObCallbacks.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E1D977DB-37A3-4B99-B6AD-B6D1E0ED117D}|Drv64\\Drv64.vcxproj|solutionrelative:Drv64\\ObCallbacks.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E1D977DB-37A3-4B99-B6AD-B6D1E0ED117D}|Drv64\\Drv64.vcxproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\DrvTypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E1D977DB-37A3-4B99-B6AD-B6D1E0ED117D}|Drv64\\Drv64.vcxproj|solutionrelative:Drv64\\DrvTypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -17,10 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E1D977DB-37A3-4B99-B6AD-B6D1E0ED117D}|Drv64\\Drv64.vcxproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\IATHook.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E1D977DB-37A3-4B99-B6AD-B6D1E0ED117D}|Drv64\\Drv64.vcxproj|solutionrelative:Drv64\\IATHook.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E1D977DB-37A3-4B99-B6AD-B6D1E0ED117D}|Drv64\\Drv64.vcxproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\ObCallbacks.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{E1D977DB-37A3-4B99-B6AD-B6D1E0ED117D}|Drv64\\Drv64.vcxproj|solutionrelative:Drv64\\ObCallbacks.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +34,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "IATHook.h",
               "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\IATHook.h",
               "RelativeDocumentMoniker": "Drv64\\IATHook.h",
@@ -46,32 +46,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "ObCallbacks.h",
               "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\ObCallbacks.h",
               "RelativeDocumentMoniker": "Drv64\\ObCallbacks.h",
               "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\ObCallbacks.h",
               "RelativeToolTip": "Drv64\\ObCallbacks.h",
-              "ViewState": "AQIAABEBAAAAAAAAAAAAABkBAAABAAAA",
+              "ViewState": "AQIAAKQAAAAAAAAAAAASwLUAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-09-29T20:59:36.632Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DrvTypes.h",
-              "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\DrvTypes.h",
-              "RelativeDocumentMoniker": "Drv64\\DrvTypes.h",
-              "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\DrvTypes.h",
-              "RelativeToolTip": "Drv64\\DrvTypes.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-09-29T20:49:57.837Z",
+              "WhenOpened": "2024-09-29T20:59:36.632Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "DrvTypes.h",
+              "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\DrvTypes.h",
+              "RelativeDocumentMoniker": "Drv64\\DrvTypes.h",
+              "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\DrvTypes.h",
+              "RelativeToolTip": "Drv64\\DrvTypes.h",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAQAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-09-29T20:49:57.837Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Utils.h",
               "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\Utils.h",
               "RelativeDocumentMoniker": "Drv64\\Utils.h",
@@ -79,8 +79,7 @@
               "RelativeToolTip": "Drv64\\Utils.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-09-29T20:45:57.961Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-29T20:45:57.961Z"
             },
             {
               "$type": "Document",
@@ -90,7 +89,7 @@
               "RelativeDocumentMoniker": "Drv64\\Driver.c",
               "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\Drv64\\Drv64\\Driver.c",
               "RelativeToolTip": "Drv64\\Driver.c",
-              "ViewState": "AQIAAF0BAAAAAAAAAAAkwHABAAArAAAA",
+              "ViewState": "AQIAAH8BAAAAAAAAAAASwJEBAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-09-29T20:42:20.318Z",
               "EditorCaption": ""

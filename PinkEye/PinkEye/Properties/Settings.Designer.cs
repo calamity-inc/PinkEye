@@ -71,13 +71,13 @@ namespace PinkEye.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool AutoInject {
+        [global::System.Configuration.DefaultSettingValueAttribute("Usermode")]
+        public string InjectionMode {
             get {
-                return ((bool)(this["AutoInject"]));
+                return ((string)(this["InjectionMode"]));
             }
             set {
-                this["AutoInject"] = value;
+                this["InjectionMode"] = value;
             }
         }
     }

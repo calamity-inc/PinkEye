@@ -21,6 +21,10 @@
             <Procedure MapAddress="InjectDllAtEntrypoint" Options="0" />
             <Procedure MapAddress="InjectDll_PinkEyeless" Options="0" />
             <Procedure MapAddress="InjectDll_NoUnload" Options="0" />
+            <Procedure MapAddress="InjectDll_LoadLibrary" Options="0" />
+            <Procedure MapAddress="InternalInjectDll" Options="0" />
+            <Procedure MapAddress="MapSainan" Options="0" />
+            <Procedure MapAddress="GetExecutableFunction" Options="0" />
         </Procedures>
         <Objects />
     </Protection>

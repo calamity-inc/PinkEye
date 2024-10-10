@@ -21,45 +21,43 @@ static VOID pInstallHook(LPVOID functionAddress, LPVOID* originalFunction, LPVOI
     if (*originalFunction) DetourAttach(originalFunction, hookedFunction);
 }
 
-wchar_t windowsPath[MAX_PATH];
-wchar_t driveLetter[3];
-
 char windowsPath_Char[MAX_PATH];
 char driveLetter_Char[3];
 
 #define CUSTOM_CERTIFICATE_SIGNATURE L"D39FCF6A625ED1B13B28DCC8148672ADCBE9969C"
 
-static NTSTATUS NTAPI HookedNtCreateFile(PHANDLE FileHandle, ACCESS_MASK DesiredAccess, POBJECT_ATTRIBUTES ObjectAttributes, PIO_STATUS_BLOCK IoStatusBlock, PLARGE_INTEGER AllocationSize, ULONG FileAttributes, ULONG ShareAccess, ULONG CreateDisposition, ULONG CreateOptions, PVOID EaBuffer, ULONG EaLength)
+#define ASLR(x) (x - (uintptr_t)0x140000000 + (uintptr_t)GetModuleHandleA(NULL))
+
+typedef VOID(__stdcall* typedef_BERetFlag1)(LPVOID a1);
+static typedef_BERetFlag1 BERetFlag1; //we could also spoof the return address probably but that comes with its own issues, if we cant find the addresses later on or a new check is added/enabled, we will resort to that instead
+
+uintptr_t RWCheck = NULL;
+
+static LONG WINAPI HookedWinVerifyTrust(HWND hwnd, GUID* pgActionID, LPVOID pWVTData)
 {
-    if (wcsstr(ObjectAttributes->ObjectName->Buffer, L":\\Windows\\System32\\CatRoot") == 0 && wcsstr(ObjectAttributes->ObjectName->Buffer, L":\\Windows\\Globalization") == 0)
+    WINTRUST_DATA wd = *(WINTRUST_DATA*)pWVTData;
+    SignResult signResult;
+    GetSignerInfo(wd.hWVTStateData, &signResult);
+    if (_wcsicmp(signResult.HashFinalCert, CUSTOM_CERTIFICATE_SIGNATURE) == 0)
     {
-        SignResult signResult;
-        if (VerifyCustomSignature(ObjectAttributes->ObjectName->Buffer, &signResult) == TRUE)
-        {
-            if (_wcsicmp(signResult.HashFinalCert, CUSTOM_CERTIFICATE_SIGNATURE) == 0)
-            {
-                wchar_t dllPath[MAX_PATH];
-                wcscpy(dllPath, L"\\??\\");
-                wcscat(dllPath, driveLetter);
-                wcscat(dllPath, L"\\Windows\\System32\\kernel32.dll");
-
-                UNICODE_STRING fileName;
-                RtlInitUnicodeString(&fileName, dllPath);
-
-                ObjectAttributes->ObjectName = &fileName;
-            }
-        }
+        *(BOOL*)RWCheck = FALSE;
+        BERetFlag1(_ReturnAddress()); //add this call to allowed chain of calls
+        *(BOOL*)RWCheck = TRUE; //we was never here :kek:
+        return ERROR_SUCCESS;
     }
-
-    return OriginalNtCreateFile(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, AllocationSize, FileAttributes, ShareAccess, CreateDisposition, CreateOptions, EaBuffer, EaLength);
+    else
+    {
+        *(BOOL*)RWCheck = FALSE;
+        BERetFlag1(_ReturnAddress()); //add this call to allowed chain of calls
+        *(BOOL*)RWCheck = TRUE; //we was never here :kek:
+        return OriginalWinVerifyTrust(hwnd, pgActionID, pWVTData);
+    }
 }
 
 __declspec(noinline) VOID CodeEntryPoint()
 {
-    GetWindowsDirectoryW((LPWSTR)windowsPath, MAX_PATH);
-    driveLetter[0] = windowsPath[0];
-    driveLetter[1] = L':';
-    driveLetter[2] = L'\0';
+    BERetFlag1 = ASLR(0x1416FDD8A);
+    RWCheck = (uintptr_t)0x1416FBE44;
 
     GetWindowsDirectoryA(windowsPath_Char, MAX_PATH);
     driveLetter_Char[0] = windowsPath_Char[0];
@@ -68,12 +66,20 @@ __declspec(noinline) VOID CodeEntryPoint()
 
     char ntdll_DllPath[MAX_PATH];
     strcpy(ntdll_DllPath, driveLetter_Char);
-    strcat(ntdll_DllPath, "\\Windows\\System32\\ntdll.dll");
+    strcat(ntdll_DllPath, "\\Windows\\System32\\wintrust.dll");
 
     DetourTransactionBegin();
     DetourUpdateThread(GetCurrentThread());
-    InstallHook(ntdll_DllPath, "NtCreateFile", (LPVOID*)&OriginalNtCreateFile, HookedNtCreateFile);
+    InstallHook(ntdll_DllPath, "WinVerifyTrust", (LPVOID*)&OriginalWinVerifyTrust, HookedWinVerifyTrust);
     DetourTransactionCommit();
+}
+
+VOID BlockThread()
+{
+    while (TRUE)
+    {
+        Sleep(INFINITE);
+    }
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
@@ -82,6 +88,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     {
         case DLL_PROCESS_ATTACH:
             CodeEntryPoint();
+            BlockThread(); //Prevent crash after reflective injection
             break;
         case DLL_THREAD_ATTACH:
         case DLL_THREAD_DETACH:

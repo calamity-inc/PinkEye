@@ -26,7 +26,7 @@ namespace PinkEye
         //internal static string StandVersion = @"1.9.3:24.9.9";
         internal static string StandVersion = @"";
 
-        internal const string DeadManSwitch = @"1.4.4.5";
+        internal const string DeadManSwitch = @"1.4.4.8";
 
         internal const string PINKEYE_API_KEY = @"wRqzrDtSnKOuCqmEEEuyuEWLrePuzYZqxaqvbJGyBskUeWEpoA";
 
@@ -60,6 +60,8 @@ namespace PinkEye
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();
 
+        private static Mutex mutex = null;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -69,7 +71,7 @@ namespace PinkEye
             SetProcessDPIAware();
 
             bool createdNew;
-            Mutex mutex = new Mutex(false, Mutex_Name, out createdNew);
+            mutex = new Mutex(false, Mutex_Name, out createdNew);
             if (!createdNew)
             {
                 MessageBox.Show(@"PinkEye is either currently open already, or currently injected into a GTA5 instance.", @"PinkEye");

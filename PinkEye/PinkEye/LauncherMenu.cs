@@ -10,6 +10,7 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PinkEye
 {
@@ -31,58 +32,50 @@ namespace PinkEye
         {
             if (versionOutdated == true)
             {
-                checkBox1.Enabled = false;
+                comboBox1.Enabled = false;
                 guna2Button1.Enabled = false;
                 guna2Button1.Text = @"This version of Stand/GTAV is not currently supported.";
             }
             else if (updateConnectionFailed == true)
             {
-                checkBox1.Enabled = false;
+                comboBox1.Enabled = false;
                 guna2Button1.Enabled = false;
                 guna2Button1.Text = @"Failed to connect to update server.";
             }
-            checkBox1.Checked = Properties.Settings.Default.AutoInject;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            if (Properties.Settings.Default.InjectionMode == @"Usermode")
+            {
+                comboBox1.SelectedItem = comboBox1.Items[0];
+            }
+            else if (Properties.Settings.Default.InjectionMode == @"Kernelmode")
+            {
+                comboBox1.SelectedItem = comboBox1.Items[1];
+            }
+            else
+            {
+                SystemSounds.Hand.Play();
+                MessageBox.Show(@"There was an error while reading the ""InjectionMode"" part of the config.", Program.PinkEyeApp_Name);
+                Process.GetCurrentProcess().Kill();
+            }
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.AutoInject == true)
+            Process[] gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
+            Process[] gtaProcessList = Process.GetProcessesByName(@"GTA5");
+            Process[] BEProcessList = Process.GetProcessesByName(@"BEService");
+            if (gtaBEProcessList.Length == 0 && gtaProcessList.Length == 0 && BEProcessList.Length == 0)
             {
-                Process[] gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
-                Process[] gtaProcessList = Process.GetProcessesByName(@"GTA5");
-                Process[] BEProcessList = Process.GetProcessesByName(@"BEService");
-                if (gtaBEProcessList.Length == 0 && gtaProcessList.Length == 0 && BEProcessList.Length == 0)
-                {
-                    this.Hide();
-                    PinkEye pinkEye = new PinkEye();
-                    pinkEye.Name = Program.PinkEyeApp_Name;
-                    pinkEye.Text = Program.PinkEyeApp_Name;
-                    pinkEye.Show();
-                }
-                else
-                {
-                    SystemSounds.Hand.Play();
-                    MessageBox.Show(@"Please close GTAV before attempting to inject.", Program.PinkEyeApp_Name);
-                }
+                this.Hide();
+                PinkEye pinkEye = new PinkEye();
+                pinkEye.Name = Program.PinkEyeApp_Name;
+                pinkEye.Text = Program.PinkEyeApp_Name;
+                pinkEye.Show();
             }
             else
             {
-                Process[] gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
-                Process[] gtaProcessList = Process.GetProcessesByName(@"GTA5");
-                Process[] BEProcessList = Process.GetProcessesByName(@"BEService");
-                if (gtaBEProcessList.Length == 0 && gtaProcessList.Length == 0 && BEProcessList.Length == 0)
-                {
-                    SystemSounds.Hand.Play();
-                    MessageBox.Show(@"Please open GTAV and load into Story Mode before attempting to inject.", Program.PinkEyeApp_Name);
-                }
-                else
-                {
-                    this.Hide();
-                    PinkEye pinkEye = new PinkEye();
-                    pinkEye.Name = Program.PinkEyeApp_Name;
-                    pinkEye.Text = Program.PinkEyeApp_Name;
-                    pinkEye.Show();
-                }
+                SystemSounds.Hand.Play();
+                MessageBox.Show(@"Please close GTAV before attempting to inject.", Program.PinkEyeApp_Name);
             }
         }
 
@@ -157,10 +150,39 @@ namespace PinkEye
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private static void ShowKernelModeInjectionWarning()
         {
-            Properties.Settings.Default.AutoInject = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            MessageBox.Show(@"**Warning: Kernel Mode Injection with PinkEye**
+
+Before proceeding with **kernel-mode injection**, please carefully read the following:
+
+1. **System Stability Risks**: Kernel-mode injection significantly increases the risk of system instability, crashes, and blue screen errors (BSOD). This is because kernel-level modifications interact directly with the core components of the operating system, leaving less room for error recovery.
+
+2. **Compatibility Issues**: Certain applications and system configurations may conflict with kernel-mode injection, leading to system malfunctions or damage to your OS installation. You may also encounter hardware or driver incompatibility.
+
+3. **Potential System Damage**: Incorrect or unauthorized kernel-level modifications may corrupt system files or cause hardware failure/issues, requiring a complete system restore or reinstallation of the operating system.
+
+4. **Security Risks**: Running software at kernel level can expose your system to potential security vulnerabilities.
+
+5. **Use at Your Own Risk**: By switching to kernel-mode injection, you acknowledge that you assume all risks associated with this mode of operation. **We are not responsible for any system damage, data loss, or hardware issues** that may result from the use of PinkEye in kernel-mode. 
+
+Proceed only if you fully understand the consequences and have taken appropriate precautions such as backing up your data and system.".Replace(@"PinkEye", Program.PinkEyeApp_Name), Program.PinkEyeApp_Name);
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem.ToString() == @"Usermode")
+            {
+                Properties.Settings.Default.InjectionMode = @"Usermode";
+                Properties.Settings.Default.Save();
+            }
+            else if (comboBox1.SelectedItem.ToString() == @"Kernelmode")
+            {
+                Properties.Settings.Default.InjectionMode = @"Kernelmode";
+                Properties.Settings.Default.Save();
+
+                ShowKernelModeInjectionWarning();
+            }
         }
     }
 }

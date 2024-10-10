@@ -1,9 +1,13 @@
 ﻿  Main.c
+C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\PinkEye_Shellcode\Main.c(34,21): warning C4047: 'initializing': 'uintptr_t' differs in levels of indirection from 'void *'
+C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\PinkEye_Shellcode\Main.c(59,16): warning C4047: '=': 'typedef_BERetFlag1' differs in levels of indirection from 'uintptr_t'
+  ReflectiveDllMain.c
+     Creating library C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\x64\Release\PinkEye_Shellcode.lib and object C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\x64\Release\PinkEye_Shellcode.exp
   Generating code
   Previous IPDB not found, fall back to full compilation.
-  All 12 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 14 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
 detours_x64.lib(detours.obj) : warning LNK4099: PDB '' was not found with 'detours_x64.lib(detours.obj)' or at ''; linking object as if no debug info
 detours_x64.lib(disasm.obj) : warning LNK4099: PDB '' was not found with 'detours_x64.lib(disasm.obj)' or at ''; linking object as if no debug info
 detours_x64.lib(modules.obj) : warning LNK4099: PDB '' was not found with 'detours_x64.lib(modules.obj)' or at ''; linking object as if no debug info
-  PinkEye_Shellcode.vcxproj -> C:\Users\C5\source\repos\PinkEye_Shellcode\x64\Release\PinkEye_Shellcode.dll
+  PinkEye_Shellcode.vcxproj -> C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\x64\Release\PinkEye_Shellcode.dll

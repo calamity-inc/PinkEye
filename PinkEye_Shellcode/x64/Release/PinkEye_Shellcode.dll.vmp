@@ -11,9 +11,9 @@
         <Folders />
         <Procedures>
             <Procedure MapAddress="GetSignerInfo" Options="0" />
-            <Procedure MapAddress="VerifyCustomSignature" Options="0" />
-            <Procedure MapAddress="HookedNtCreateFile" Options="0" />
             <Procedure MapAddress="CodeEntryPoint" Options="0" />
+            <Procedure MapAddress="BlockThread" Options="0" />
+            <Procedure MapAddress="HookedWinVerifyTrust" Options="0" />
         </Procedures>
         <Objects />
     </Protection>

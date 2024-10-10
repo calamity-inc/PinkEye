@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEyeInjector\\",
+  "WorkspaceRootPath": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\bababooi\\PinkEyeInjector\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6C9FDBF0-5BC6-4C98-8E66-C2948325D894}|PinkEyeInjector\\PinkEyeInjector.vcxproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEyeInjector\\PinkEyeInjector\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{6C9FDBF0-5BC6-4C98-8E66-C2948325D894}|PinkEyeInjector\\PinkEyeInjector.vcxproj|C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\bababooi\\PinkEyeInjector\\PinkEyeInjector\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6C9FDBF0-5BC6-4C98-8E66-C2948325D894}|PinkEyeInjector\\PinkEyeInjector.vcxproj|solutionrelative:PinkEyeInjector\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -20,11 +20,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Main.c",
-              "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEyeInjector\\PinkEyeInjector\\Main.c",
+              "DocumentMoniker": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\bababooi\\PinkEyeInjector\\PinkEyeInjector\\Main.c",
               "RelativeDocumentMoniker": "PinkEyeInjector\\Main.c",
-              "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\PinkEyeInjector\\PinkEyeInjector\\Main.c",
+              "ToolTip": "C:\\Users\\C5\\source\\repos\\PinkEye Stuff\\bababooi\\PinkEyeInjector\\PinkEyeInjector\\Main.c",
               "RelativeToolTip": "PinkEyeInjector\\Main.c",
-              "ViewState": "AQIAAEAAAAAAAAAAAAAiwDIAAAAAAAAA",
+              "ViewState": "AQIAAGUBAAAAAAAAAAASwHUBAABUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-09-21T06:45:15.334Z",
               "EditorCaption": ""

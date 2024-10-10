@@ -38,6 +38,12 @@ namespace PinkEye
         private static extern int InjectDllAtEntrypoint(string windowName, string dllPath);
         
         [DllImport("bin\\" + Program.PinkEyeInjectorDLL_Name)]
+        private static extern int InjectDll_LoadLibrary(string windowName, string dllPath);
+        
+        [DllImport("bin\\" + Program.PinkEyeInjectorDLL_Name)]
+        private static extern int MapSainan(byte[] shellcodeBytes, uint shellcodeSize, int processID);
+        
+        [DllImport("bin\\" + Program.PinkEyeInjectorDLL_Name)]
         private static extern int LoadDriver(string windowName, string DriverName, string DriverPath);
         
         [DllImport("bin\\" + Program.PinkEyeInjectorDLL_Name)]
@@ -162,6 +168,13 @@ Connection: Close
 
                                 if (responseText.ToLower().Contains(@"200 OK".ToLower()) == false)
                                 {
+                                    try
+                                    {
+                                        InternalUnloadDriver(true);
+                                    }
+                                    catch
+                                    {
+                                    }
                                     Process.GetCurrentProcess().Kill();
                                 }
 
@@ -205,12 +218,27 @@ Connection: Close
                                 //Shellcode Injection
                                 uint shellCodeSize = (uint)responseData.Length;
                                 int processID = Process.GetProcessesByName(@"BEService")[0].Id;
-                                IntPtr processHandle = OpenProcess(PROCESS_ALL_ACCESS, false, processID);
-                                IntPtr baseAddress = VirtualAllocEx(processHandle, IntPtr.Zero, shellCodeSize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-                                IntPtr bytesWritten;
-                                WriteProcessMemory(processHandle, baseAddress, responseData, shellCodeSize, out bytesWritten);
-                                CreateRemoteThread(processHandle, IntPtr.Zero, 0, baseAddress, IntPtr.Zero, 0, IntPtr.Zero);
-                                CloseHandle(processHandle);
+
+                                //IntPtr processHandle = OpenProcess(PROCESS_ALL_ACCESS, false, processID);
+                                //IntPtr baseAddress = VirtualAllocEx(processHandle, IntPtr.Zero, shellCodeSize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+                                //IntPtr bytesWritten;
+                                //WriteProcessMemory(processHandle, baseAddress, responseData, shellCodeSize, out bytesWritten);
+                                //CreateRemoteThread(processHandle, IntPtr.Zero, 0, baseAddress, IntPtr.Zero, 0, IntPtr.Zero);
+                                //CloseHandle(processHandle);
+
+                                int BEServiceInjectionResult = MapSainan(responseData, shellCodeSize, processID);
+                                if (BEServiceInjectionResult != 1)
+                                {
+                                    try
+                                    {
+                                        InternalUnloadDriver(true);
+                                    }
+                                    catch
+                                    {
+                                    }
+                                    Process.GetCurrentProcess().Kill();
+                                }
+
                                 shellCodeSize = 0;
                                 //Shellcode Injection
 
@@ -388,7 +416,7 @@ Connection: Close
                     UnmapViewOfFile(pData);
                 }
             }
-    }
+        }
 
         private void PinkEye_Load(object sender, EventArgs e)
         {
@@ -742,29 +770,14 @@ Connection: Close
                     timer1.Stop();
                     guna2CircleProgressBar1.AnimationSpeed = 150.6f;
 
-                    if (Properties.Settings.Default.AutoInject == true)
+                    Process[] local_gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
+                    Process[] local_gtaProcessList = Process.GetProcessesByName(@"GTA5");
+                    Process[] local_BEProcessList = Process.GetProcessesByName(@"BEService");
+                    if (local_gtaBEProcessList.Length != 0 || local_gtaProcessList.Length != 0 || local_BEProcessList.Length != 0)
                     {
-                        Process[] local_gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
-                        Process[] local_gtaProcessList = Process.GetProcessesByName(@"GTA5");
-                        Process[] local_BEProcessList = Process.GetProcessesByName(@"BEService");
-                        if (local_gtaBEProcessList.Length != 0 || local_gtaProcessList.Length != 0 || local_BEProcessList.Length != 0)
-                        {
-                            SystemSounds.Hand.Play();
-                            MessageBox.Show(@"Please close GTAV before attempting to inject.", Program.PinkEyeApp_Name);
-                            Process.GetCurrentProcess().Kill();
-                        }
-                    }
-                    else
-                    {
-                        Process[] local_gtaBEProcessList = Process.GetProcessesByName(@"GTA5_BE");
-                        Process[] local_gtaProcessList = Process.GetProcessesByName(@"GTA5");
-                        Process[] local_BEProcessList = Process.GetProcessesByName(@"BEService");
-                        if (local_gtaBEProcessList.Length == 0 || local_gtaProcessList.Length == 0 || local_BEProcessList.Length == 0)
-                        {
-                            SystemSounds.Hand.Play();
-                            MessageBox.Show(@"Please open GTAV and load into Story Mode before attempting to inject.", Program.PinkEyeApp_Name);
-                            Process.GetCurrentProcess().Kill();
-                        }
+                        SystemSounds.Hand.Play();
+                        MessageBox.Show(@"Please close GTAV before attempting to inject.", Program.PinkEyeApp_Name);
+                        Process.GetCurrentProcess().Kill();
                     }
 
                     Program.RandomFileName_Length = Program.random.Next(6, 30); //randomize file name length
@@ -775,7 +788,10 @@ Connection: Close
 
                     string StandDLL_DestPath = Program.currentTempFolderPath + Program.StandDLL_Name;
 
-                    string PinkEyeDLLMapper_DestPath = Program.currentTempFolderPath + Program.RandomString(Program.RandomFileName_Length) + @".dll";
+                    //string PinkEyeDLLMapper_DestPath = Program.currentTempFolderPath + Program.RandomString(Program.RandomFileName_Length) + @".dll";
+
+                    Program.PinkEyeDriver_Name = Program.RandomString(Program.RandomFileName_Length) + @".sys";
+                    string PinkEyeDriver_DestPath = Program.currentTempFolderPath + Program.PinkEyeDriver_Name;
 
                     try
                     {
@@ -794,24 +810,45 @@ Connection: Close
                         Process.GetCurrentProcess().Kill();
                     }
 
-                    try
+                    //try
+                    //{
+                    //    File.Copy(currentBinPath + @"PinkEyeDLLMapper.dll", PinkEyeDLLMapper_DestPath, true);
+                    //    Properties.Settings.Default.Dlls.Add(PinkEyeDLLMapper_DestPath);
+                    //    Properties.Settings.Default.Save();
+                    //}
+                    //catch
+                    //{
+                    //    this.Invoke((MethodInvoker)delegate
+                    //    {
+                    //        SystemSounds.Hand.Play();
+                    //        MessageBox.Show($"(1) Failed to copy local dependency \"{PinkEyeDLLMapper_DestPath}\" to the Temp folder.", Program.PinkEyeApp_Name);
+                    //    });
+                    //    Process.GetCurrentProcess().Kill();
+                    //}
+
+                    if (Properties.Settings.Default.InjectionMode == @"Kernelmode")
                     {
-                        File.Copy(currentBinPath + @"PinkEyeDLLMapper.dll", PinkEyeDLLMapper_DestPath, true);
-                        Properties.Settings.Default.Dlls.Add(PinkEyeDLLMapper_DestPath);
-                        Properties.Settings.Default.Save();
-                    }
-                    catch
-                    {
-                        this.Invoke((MethodInvoker)delegate
+                        try
                         {
-                            SystemSounds.Hand.Play();
-                            MessageBox.Show($"(1) Failed to copy local dependency \"{PinkEyeDLLMapper_DestPath}\" to the Temp folder.", Program.PinkEyeApp_Name);
-                        });
-                        Process.GetCurrentProcess().Kill();
+                            File.Copy(currentBinPath + @"PinkEye.sys", PinkEyeDriver_DestPath, true);
+                            Properties.Settings.Default.Drivers.Add(PinkEyeDriver_DestPath);
+                            Properties.Settings.Default.Save();
+                        }
+                        catch
+                        {
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                SystemSounds.Hand.Play();
+                                MessageBox.Show($"(1) Failed to copy local dependency \"{PinkEyeDriver_DestPath}\" to the Temp folder.", Program.PinkEyeApp_Name);
+                            });
+                            Process.GetCurrentProcess().Kill();
+                        }
                     }
 
                     try
                     {
+                        ignoreUnloadErrors = true;
+
                         this.Invoke((MethodInvoker)delegate
                         {
                             guna2CircleProgressBar1.Visible = false;
@@ -846,7 +883,7 @@ Connection: Close
                                 }
                                 else
                                 {
-                                    InternalUnloadDriver();
+                                    InternalUnloadDriver(true);
                                     Process.GetCurrentProcess().Kill();
                                 }
                             }
@@ -877,7 +914,7 @@ Connection: Close
                                 }
                                 else
                                 {
-                                    InternalUnloadDriver();
+                                    InternalUnloadDriver(true);
                                     Process.GetCurrentProcess().Kill();
                                 }
                             }
@@ -907,7 +944,7 @@ Connection: Close
                                 }
                                 else
                                 {
-                                    InternalUnloadDriver();
+                                    InternalUnloadDriver(true);
                                     Process.GetCurrentProcess().Kill();
                                 }
                             }
@@ -916,6 +953,8 @@ Connection: Close
                         {
                             guna2Button1.Text = @"Injecting...";
                         });
+
+                        ignoreUnloadErrors = false;
 
                         Thread.Sleep(1000); //DEBUG //Disable if needed or if you want no wait time to inject into BEService after it starts (if you want instant injection you should also probably move the below shellcode injection code right under the loop that waits for BEService
 
@@ -937,20 +976,62 @@ Connection: Close
                         //Thread.Sleep(5000); //(UserMode) Increase wait before injecting into BEService if needed, or disable if not needed/if this casues any issues
                         Thread.Sleep(15000); //(UserMode) Increase wait before injecting into BEService if needed, or disable if not needed/if this casues any issues
 
+                        if (Properties.Settings.Default.InjectionMode == @"Kernelmode")
+                        {
+                            int driverStatus = LoadDriver(@"Grand Theft Auto V", Path.GetFileNameWithoutExtension(PinkEyeDriver_DestPath), PinkEyeDriver_DestPath);
+
+                            if (driverStatus == 10)
+                            {
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    SystemSounds.Hand.Play();
+                                    MessageBox.Show(@"Failed to find GTAV.", Program.PinkEyeApp_Name);
+                                });
+                                InternalUnloadDriver(true);
+                                Process.GetCurrentProcess().Kill();
+                            }
+                            else if (driverStatus == 11)
+                            {
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    SystemSounds.Hand.Play();
+                                    MessageBox.Show(@"Failed to load driver.", Program.PinkEyeApp_Name);
+                                });
+                                InternalUnloadDriver(true);
+                                Process.GetCurrentProcess().Kill();
+                            }
+                        }
+
                         bool BEInjectionStatus = SendRequest(Program.Stand_Key);
                         if (BEInjectionStatus == false)
                         {
+                            InternalUnloadDriver(true);
                             Process.GetCurrentProcess().Kill();
                         }
 
                         //Thread.Sleep(5000); //Increase wait time after GTAV window has been found before injection if needed
                         Thread.Sleep(15000); //(UserMode) Increase wait time after GTAV window has been found before injection if needed
 
-                        //int injectionStatus = InjectDll_NoUnload(@"Grand Theft Auto V", StandDLL_DestPath, @"Deez");
-                        int injectionStatus = InjectDll_NoUnload(@"Grand Theft Auto V", PinkEyeDLLMapper_DestPath, @"SfcClose");
+                        int injectionStatus = 0;
+                        if (Properties.Settings.Default.InjectionMode == @"Usermode")
+                        {
+                            injectionStatus = InjectDll_NoUnload(@"Grand Theft Auto V", StandDLL_DestPath, @"Deez");
+                        }
+                        else
+                        {
+                            injectionStatus = InjectDll_LoadLibrary(@"Grand Theft Auto V", StandDLL_DestPath);
+                        }
+
+                        //int injectionStatus = InjectDll_NoUnload(@"Grand Theft Auto V", StandDLL_DestPath, @"Deez"); //v5
+                        //int injectionStatus = InjectDll_NoUnload(@"Grand Theft Auto V", PinkEyeDLLMapper_DestPath, @"SfcClose"); //v5.1
                         if (injectionStatus == 1)
                         {
                             Thread.Sleep(2000);
+
+                            if (Properties.Settings.Default.InjectionMode == @"Kernelmode")
+                            {
+                                InternalUnloadDriver();
+                            }
 
                             this.Invoke((MethodInvoker)delegate
                             {
