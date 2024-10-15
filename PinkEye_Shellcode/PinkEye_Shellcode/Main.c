@@ -31,6 +31,9 @@ char driveLetter_Char[3];
 typedef VOID(__stdcall* typedef_BERetFlag1)(LPVOID a1);
 static typedef_BERetFlag1 BERetFlag1; //we could also spoof the return address probably but that comes with its own issues, if we cant find the addresses later on or a new check is added/enabled, we will resort to that instead
 
+typedef VOID(__stdcall* typedef_BERetFlag2)(LPVOID a1);
+static typedef_BERetFlag2 BERetFlag2; //we could also spoof the return address probably but that comes with its own issues, if we cant find the addresses later on or a new check is added/enabled, we will resort to that instead
+
 uintptr_t RWCheck = NULL;
 
 static LONG WINAPI HookedWinVerifyTrust(HWND hwnd, GUID* pgActionID, LPVOID pWVTData)
@@ -56,8 +59,9 @@ static LONG WINAPI HookedWinVerifyTrust(HWND hwnd, GUID* pgActionID, LPVOID pWVT
 
 __declspec(noinline) VOID CodeEntryPoint()
 {
-    BERetFlag1 = ASLR(0x1416FDD8A);
-    RWCheck = (uintptr_t)0x1416FBE44;
+    BERetFlag1 = ASLR(0x1416FAAB3); //10/15/2024
+    RWCheck = (uintptr_t)0x1416DED13; //10/15/2024
+    BERetFlag2 = ASLR(0x1416AD138); //10/15/2024
 
     GetWindowsDirectoryA(windowsPath_Char, MAX_PATH);
     driveLetter_Char[0] = windowsPath_Char[0];
@@ -67,6 +71,10 @@ __declspec(noinline) VOID CodeEntryPoint()
     char ntdll_DllPath[MAX_PATH];
     strcpy(ntdll_DllPath, driveLetter_Char);
     strcat(ntdll_DllPath, "\\Windows\\System32\\wintrust.dll");
+
+    *(BOOL*)RWCheck = FALSE;
+    BERetFlag2(GetModuleHandleA("ntdll.dll")); //add this dll to trusted list so we can modify
+    *(BOOL*)RWCheck = TRUE; //we was never here :kek:
 
     DetourTransactionBegin();
     DetourUpdateThread(GetCurrentThread());
