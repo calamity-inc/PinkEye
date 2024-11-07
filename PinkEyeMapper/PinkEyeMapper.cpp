@@ -1,4 +1,6 @@
 #include <Windows.h>
+#include <psapi.h>
+#include "detours.h"
 
 typedef struct _UNICODE_STRING {
 	USHORT Length;
@@ -114,6 +116,7 @@ typedef FARPROC(WINAPI* NT_GETPROCADDRESS)(HMODULE module, LPCSTR function);
 typedef LPVOID(WINAPI* NT_VIRTUALALLOC)(LPVOID address, SIZE_T size, DWORD allocationType, DWORD protect);
 typedef BOOL(WINAPI* NT_VIRTUALPROTECT)(LPVOID address, SIZE_T size, DWORD newProtect, PDWORD oldProtect);
 typedef BOOL(WINAPI* NT_DLLMAIN)(HINSTANCE module, DWORD reason, LPVOID reserved);
+typedef VOID(WINAPI* ENABLE_EXCEPTIONS)(void* dll);
 
 DWORD SectionCharacteristicsToProtection(DWORD characteristics)
 {
@@ -206,19 +209,229 @@ static LPVOID PebGetProcAddress(DWORD moduleHash, DWORD functionHash)
 	return NULL;
 }
 
-EXTERN_C __declspec(dllexport) BOOL WINAPI MapSainan(LPBYTE dllBase)
+BOOL EnableExceptions(DWORD64 moduleBase)
 {
+	PIMAGE_DOS_HEADER pDOSHeader;
+	PIMAGE_NT_HEADERS pNTHeader;
+	PIMAGE_OPTIONAL_HEADER pOptHeader;
+
+	pDOSHeader = (PIMAGE_DOS_HEADER)moduleBase;
+	if (pDOSHeader->e_magic != IMAGE_DOS_SIGNATURE)
+	{
+		return FALSE;
+	}
+
+	pNTHeader = (PIMAGE_NT_HEADERS)((PBYTE)pDOSHeader + pDOSHeader->e_lfanew);
+	if (pNTHeader->Signature != IMAGE_NT_SIGNATURE)
+	{
+		return FALSE;
+	}
+
+	pOptHeader = (PIMAGE_OPTIONAL_HEADER)&pNTHeader->OptionalHeader;
+	if (pOptHeader->Magic != IMAGE_NT_OPTIONAL_HDR_MAGIC)
+	{
+		return FALSE;
+	}
+
+	PRUNTIME_FUNCTION pFunctionTable = (PRUNTIME_FUNCTION)((DWORD64)pOptHeader->DataDirectory[IMAGE_DIRECTORY_ENTRY_EXCEPTION].VirtualAddress + moduleBase);
+
+	DWORD sizeFunctionTable = (pOptHeader->DataDirectory[3].Size / (DWORD)sizeof(RUNTIME_FUNCTION));
+
+	BOOL success = RtlAddFunctionTable(pFunctionTable, sizeFunctionTable, moduleBase); //winnt.h
+
+	return success;
+}
+
+int MemoryCompare(const BYTE* bData, const BYTE* bMask, const char* szMask)
+{
+	for (; *szMask; ++szMask, ++bData, ++bMask)
+	{
+		if (*szMask == 'x' && *bData != *bMask)
+		{
+			return 0;
+		}
+	}
+	return (*szMask == '\0');
+}
+
+uintptr_t FindSignature(uintptr_t start, SIZE_T size, const char* sig, const char* mask)
+{
+	BYTE* data = (BYTE*)malloc(size);
+	SIZE_T bytesRead;
+
+	if (!data)
+	{
+		return 0;
+	}
+
+	if (!ReadProcessMemory(GetCurrentProcess(), (LPCVOID)start, data, size, &bytesRead) || bytesRead != size)
+	{
+		free(data);
+		return 0;
+	}
+
+	for (SIZE_T i = 0; i < size; i++)
+	{
+		if (MemoryCompare((const BYTE*)(data + i), (const BYTE*)sig, mask))
+		{
+			free(data);
+			return start + i;
+		}
+	}
+
+	free(data);
+	return 0;
+}
+
+uintptr_t ScanPattern(const char* moduleName, const char* signature, const char* mask)
+{
+	HMODULE hModule = NULL;
+
+	if (moduleName == "")
+	{
+		hModule = GetModuleHandleA(NULL);
+	}
+	else
+	{
+		hModule = GetModuleHandleA(moduleName);
+	}
+
+	if (!hModule)
+	{
+		return 0;
+	}
+
+	MODULEINFO modInfo;
+	GetModuleInformation(GetCurrentProcess(), hModule, &modInfo, sizeof(MODULEINFO));
+
+	uintptr_t baseAddress = (uintptr_t)modInfo.lpBaseOfDll;
+	SIZE_T moduleSize = (SIZE_T)modInfo.SizeOfImage;
+
+	return FindSignature(baseAddress, moduleSize, signature, mask);
+}
+
+typedef struct __LDR_DATA_TABLE_ENTRY {
+	LIST_ENTRY InLoadOrderLinks;
+	LIST_ENTRY InMemoryOrderLinks;
+	LIST_ENTRY InInitializationOrderLinks;
+	PVOID      DllBase;
+	PVOID      EntryPoint;
+	ULONG      SizeOfImage;
+	UNICODE_STRING FullDllName;
+	UNICODE_STRING BaseDllName;
+	ULONG      Flags;
+	SHORT      LoadCount;
+	SHORT      TlsIndex;
+	LIST_ENTRY HashLinks;
+	PVOID      SectionPointer;
+	ULONG      CheckSum;
+	ULONG      TimeDateStamp;
+	PVOID      LoadedImports;
+	PVOID      EntryPointActivationContext;
+	PVOID      PatchInformation;
+} ___LDR_DATA_TABLE_ENTRY_BASE, * _PLDR_DATA_TABLE_ENTRY_BASE;
+
+typedef LONG(NTAPI* typedef_LdrpHandleTlsData)(___LDR_DATA_TABLE_ENTRY_BASE* ModuleEntry);
+
+void RegisterCustomLdrEntry(HMODULE hModule)
+{
+	___LDR_DATA_TABLE_ENTRY_BASE LdrpEntryBase;
+	memset(&LdrpEntryBase, 0, sizeof(LdrpEntryBase));
+
+	LdrpEntryBase.DllBase = (PVOID)(hModule);
+
+	uintptr_t functionAddress = ScanPattern("ntdll.dll", "\x48\x89\x5C\x24\x00\x48\x89\x74\x24\x00\x48\x89\x7C\x24\x00\x41\x54\x41\x56\x41\x57\x48\x81\xEC\x00\x00\x00\x00\x48\x8B\x05\x00\x00\x00\x00\x48\x33\xC4\x48\x89\x84\x24\x00\x00\x00\x00\x48\x8B\xC1\x48\x89\x4C\x24\x00\x48\x89\x8C\x24\x00\x00\x00\x00\x33\xDB\x39\x1D\x00\x00\x00\x00\x74\x33\x44\x8D\x43\x09\x48\x8D\x4C\x24\x00\x48\x89\x4C\x24\x00\x4C\x8D\x4C\x24\x00\xB2\x01\x48\x8B\x48\x30\xE8\x00\x00\x00\x00\x48\x8B\x4C\x24\x00\x85\xC0\x48\x0F\x48\xCB\x48\x89\x4C\x24\x00\x48\x85\xC9\x75\x31\x33\xC0\x48\x8B\x8C\x24\x00\x00\x00\x00\x48\x33\xCC\xE8\x00\x00\x00\x00\x4C\x8D\x9C\x24\x00\x00\x00\x00\x49\x8B\x5B\x28\x49\x8B\x73\x30\x49\x8B\x7B\x38\x49\x8B\xE3\x41\x5F\x41\x5E\x41\x5C\xC3", "xxxx?xxxx?xxxx?xxxxxxxxx????xxx????xxxxxxx????xxxxxxx?xxxx????xxxx????xxxxxxxxxx?xxxx?xxxx?xxxxxxx????xxxx?xxxxxxxxxx?xxxxxxxxxxx????xxxx????xxxx????xxxxxxxxxxxxxxxxxxxxxx");
+
+	if (functionAddress == NULL)
+	{
+		functionAddress = ScanPattern("ntdll.dll", "\x48\x89\x5C\x24\x00\x48\x89\x74\x24\x00\x48\x89\x7C\x24\x00\x41\x55\x41\x56\x41\x57\x48\x81\xEC\x00\x00\x00\x00\x48\x8B\x05\x00\x00\x00\x00\x48\x33\xC4\x48\x89\x84\x24\x00\x00\x00\x00\x4C\x8B\xE9\x48\x89\x8C\x24\x00\x00\x00\x00\x48\x89\x8C\x24\x00\x00\x00\x00\x33\xDB\x39\x1D\x00\x00\x00\x00\x74\x37\x44\x8D\x43\x09\x44\x39\x81\x00\x00\x00\x00\x74\x2A\x48\x8D\x44\x24\x00\x48\x89\x44\x24\x00\x4C\x8D\x4C\x24\x00\xB2\x01\x48\x8B\x49\x30\xE8\x00\x00\x00\x00\x4C\x8B\x7C\x24\x00\x85\xC0\x4C\x0F\x48\xFB\x4D\x85\xFF\x75\x31\x33\xC0\x48\x8B\x8C\x24\x00\x00\x00\x00\x48\x33\xCC\xE8\x00\x00\x00\x00\x4C\x8D\x9C\x24\x00\x00\x00\x00\x49\x8B\x5B\x28\x49\x8B\x73\x30\x49\x8B\x7B\x38\x49\x8B\xE3\x41\x5F\x41\x5E\x41\x5D\xC3", "xxxx?xxxx?xxxx?xxxxxxxxx????xxx????xxxxxxx????xxxxxxx????xxxx????xxxx????xxxxxxxxx????xxxxxx?xxxx?xxxx?xxxxxxx????xxxx?xxxxxxxxxxxxxxxxx????xxxx????xxxx????xxxxxxxxxxxxxxxxxxxxxx");
+	}
+
+	if (functionAddress == NULL)
+	{
+		TerminateProcess(GetCurrentProcess(), 0);
+	}
+
+	((typedef_LdrpHandleTlsData)functionAddress)(&LdrpEntryBase);
+}
+
+LPVOID GetFunction(LPCSTR dll, LPCSTR function)
+{
+	HMODULE module = GetModuleHandleA(dll);
+	return module ? (LPVOID)GetProcAddress(module, function) : NULL;
+}
+
+static VOID InstallHook(LPCSTR dll, LPCSTR function, LPVOID* originalFunction, LPVOID hookedFunction)
+{
+	*originalFunction = GetFunction(dll, function);
+	if (*originalFunction) DetourAttach(originalFunction, hookedFunction);
+}
+
+static VOID pInstallHook(LPVOID functionAddress, LPVOID* originalFunction, LPVOID hookedFunction)
+{
+	*originalFunction = functionAddress;
+	if (*originalFunction) DetourAttach(originalFunction, hookedFunction);
+}
+
+LPVOID ntdllBaseAddress = NULL;
+LPVOID allocatedMemoryAddress = NULL;
+
+typedef enum _MEMORY_INFORMATION_CLASS {
+	MemoryBasicInformation
+} MEMORY_INFORMATION_CLASS;
+typedef LONG(NTAPI* typedef_NtQueryVirtualMemory)(HANDLE ProcessHandle, PVOID BaseAddress, MEMORY_INFORMATION_CLASS MemoryInformationClass, PVOID MemoryInformation, SIZE_T MemoryInformationLength, PSIZE_T ReturnLength);
+static typedef_NtQueryVirtualMemory OriginalNtQueryVirtualMemory;
+static LONG NTAPI HookedNtQueryVirtualMemory(HANDLE ProcessHandle, PVOID BaseAddress, MEMORY_INFORMATION_CLASS MemoryInformationClass, PVOID MemoryInformation, SIZE_T MemoryInformationLength, PSIZE_T ReturnLength)
+{
+	if (allocatedMemoryAddress != NULL && (uintptr_t)BaseAddress == (uintptr_t)allocatedMemoryAddress)
+	{
+		BaseAddress = ntdllBaseAddress;
+	}
+	return OriginalNtQueryVirtualMemory(ProcessHandle, BaseAddress, MemoryInformationClass, MemoryInformation, MemoryInformationLength, ReturnLength);
+}
+
+void PostMappingInit(HMODULE hModule, PVOID lpArg)
+{
+	VirtualFree(lpArg, 0, MEM_RELEASE);
+	PIMAGE_NT_HEADERS ntHeaders = (PIMAGE_NT_HEADERS)(hModule + ((PIMAGE_DOS_HEADER)hModule)->e_lfanew);
+	DWORD oldProtect = 0;
+	VirtualProtect(hModule, ntHeaders->OptionalHeader.SizeOfImage, PAGE_EXECUTE_READ, &oldProtect);
+	EnableExceptions((DWORD64)hModule);
+	RegisterCustomLdrEntry(hModule);
+
+	ntdllBaseAddress = (LPVOID)GetModuleHandleA("ntdll.dll");
+	allocatedMemoryAddress = (LPVOID)hModule;
+
+	DetourTransactionBegin();
+	DetourUpdateThread(GetCurrentThread());
+	InstallHook("ntdll.dll", "NtQueryVirtualMemory", (LPVOID*)&OriginalNtQueryVirtualMemory, HookedNtQueryVirtualMemory);
+	DetourTransactionCommit();
+}
+
+void BlockThread()
+{
+	while (TRUE)
+	{
+		Sleep(INFINITE);
+	}
+}
+
+#pragma optimize("", off)
+EXTERN_C __declspec(dllexport) BOOL WINAPI MapSainan(LPBYTE dllBase, LPBYTE allocatedMemory)
+{
+	dllBase = (LPBYTE)0xC0DEC0DEC0DEC0DE;
+	allocatedMemory = (LPBYTE)0xC0DEC0DEC0DEC0DE;
+
 	NT_NTFLUSHINSTRUCTIONCACHE ntFlushInstructionCache = (NT_NTFLUSHINSTRUCTIONCACHE)PebGetProcAddress(0x3cfa685d, 0x534c0ab8);
 	NT_LOADLIBRARYA loadLibraryA = (NT_LOADLIBRARYA)PebGetProcAddress(0x6a4abc5b, 0xec0e4e8e);
 	NT_GETPROCADDRESS getProcAddress = (NT_GETPROCADDRESS)PebGetProcAddress(0x6a4abc5b, 0x7c0dfcaa);
 	NT_VIRTUALALLOC virtualAlloc = (NT_VIRTUALALLOC)PebGetProcAddress(0x6a4abc5b, 0x91afca54);
 	NT_VIRTUALPROTECT virtualProtect = (NT_VIRTUALPROTECT)PebGetProcAddress(0x6a4abc5b, 0x7946c61b);
-
+	
 	if (ntFlushInstructionCache && loadLibraryA && getProcAddress && virtualAlloc && virtualProtect)
 	{
 		PIMAGE_NT_HEADERS ntHeaders = (PIMAGE_NT_HEADERS)(dllBase + ((PIMAGE_DOS_HEADER)dllBase)->e_lfanew);
 
-		LPBYTE allocatedMemory = (LPBYTE)virtualAlloc(NULL, ntHeaders->OptionalHeader.SizeOfImage, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 		if (allocatedMemory)
 		{
 			i_memcpy(allocatedMemory, dllBase, ntHeaders->OptionalHeader.SizeOfHeaders);
@@ -308,26 +521,24 @@ EXTERN_C __declspec(dllexport) BOOL WINAPI MapSainan(LPBYTE dllBase)
 			}
 
 			PIMAGE_DATA_DIRECTORY pDataDir = &ntHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS];
-
 			if (pDataDir->Size)
 			{
 				PIMAGE_TLS_DIRECTORY pTlsDir = RVA(PIMAGE_TLS_DIRECTORY, allocatedMemory, pDataDir->VirtualAddress);
-
 				PIMAGE_TLS_CALLBACK* ppCallback = (PIMAGE_TLS_CALLBACK*)(pTlsDir->AddressOfCallBacks);
-
 				for (; *ppCallback; ppCallback++)
 				{
 					(*ppCallback)((LPVOID)allocatedMemory, DLL_PROCESS_ATTACH, NULL);
 				}
 			}
-
+			
 			NT_DLLMAIN dllMain = (NT_DLLMAIN)(allocatedMemory + ntHeaders->OptionalHeader.AddressOfEntryPoint);
 
 			ntFlushInstructionCache(INVALID_HANDLE_VALUE, NULL, 0);
 
-			return dllMain((HINSTANCE)allocatedMemory, DLL_PROCESS_ATTACH, NULL);
+			return dllMain((HINSTANCE)allocatedMemory, DLL_PROCESS_ATTACH, dllBase);
 		}
 	}
 
 	return FALSE;
 }
+#pragma optimize("", on)
