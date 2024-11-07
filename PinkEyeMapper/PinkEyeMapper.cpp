@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include <psapi.h>
 #include "detours.h"
+#include <lib/MinHook 423d1e4/src/buffer.h>
 
 typedef struct _UNICODE_STRING {
 	USHORT Length;
@@ -375,6 +376,12 @@ static VOID pInstallHook(LPVOID functionAddress, LPVOID* originalFunction, LPVOI
 
 LPVOID ntdllBaseAddress = NULL;
 LPVOID allocatedMemoryAddress = NULL;
+SIZE_T allocatedMemorySize = 0;
+
+BOOLEAN CheckReturnAddressBounds(ULONG_PTR Rip, ULONG_PTR BaseAddress, DWORD ModuleSize)
+{
+	return (Rip > BaseAddress) && (Rip < (BaseAddress + ModuleSize));
+}
 
 typedef enum _MEMORY_INFORMATION_CLASS {
 	MemoryBasicInformation
@@ -383,28 +390,85 @@ typedef LONG(NTAPI* typedef_NtQueryVirtualMemory)(HANDLE ProcessHandle, PVOID Ba
 static typedef_NtQueryVirtualMemory OriginalNtQueryVirtualMemory;
 static LONG NTAPI HookedNtQueryVirtualMemory(HANDLE ProcessHandle, PVOID BaseAddress, MEMORY_INFORMATION_CLASS MemoryInformationClass, PVOID MemoryInformation, SIZE_T MemoryInformationLength, PSIZE_T ReturnLength)
 {
-	if (allocatedMemoryAddress != NULL && (uintptr_t)BaseAddress == (uintptr_t)allocatedMemoryAddress)
+	if (allocatedMemoryAddress != NULL && allocatedMemorySize != 0 && CheckReturnAddressBounds((uintptr_t)BaseAddress, (uintptr_t)allocatedMemoryAddress, allocatedMemorySize) == TRUE)
 	{
 		BaseAddress = ntdllBaseAddress;
 	}
 	return OriginalNtQueryVirtualMemory(ProcessHandle, BaseAddress, MemoryInformationClass, MemoryInformation, MemoryInformationLength, ReturnLength);
 }
 
+#define NT_SUCCESS(Status) (((LONG)(Status)) >= 0)
+typedef LONG(NTAPI* typedef_NtResumeThread)(HANDLE, PULONG);
+static typedef_NtResumeThread OriginalNtResumeThread;
+static LONG NTAPI HookedNtResumeThread(HANDLE ThreadHandle, PULONG SuspendCount)
+{
+	ULONG localSuspendCount;
+	LONG status = OriginalNtResumeThread(ThreadHandle, &localSuspendCount);
+	if (NT_SUCCESS(status))
+	{
+		if (SuspendCount != NULL)
+		{
+			if (localSuspendCount != (ULONG)-1)
+			{
+				*SuspendCount = (ULONG)-1;
+			}
+			else
+			{
+				*SuspendCount = localSuspendCount;
+			}
+		}
+	}
+	else
+	{
+		if (SuspendCount != NULL)
+		{
+			*SuspendCount = localSuspendCount;
+		}
+	}
+	return status;
+}
+
+SIZE_T VirtualQueryWrapper(LPCVOID lpAddress, PMEMORY_BASIC_INFORMATION lpBuffer, SIZE_T dwLength)
+{
+	SIZE_T returnLength;
+	LONG status = OriginalNtQueryVirtualMemory(GetCurrentProcess(), (PVOID)lpAddress, MemoryBasicInformation, lpBuffer, dwLength, &returnLength);
+	if (status != 0)
+	{
+		return 0;
+	}
+	return returnLength;
+}
+
+#define PAGE_EXECUTE_FLAGS (PAGE_EXECUTE | PAGE_EXECUTE_READ | PAGE_EXECUTE_READWRITE | PAGE_EXECUTE_WRITECOPY)
+typedef BOOL(__stdcall* typedef_IsExecutableAddress)(LPVOID pAddress);
+static typedef_IsExecutableAddress OriginalIsExecutableAddress;
+static BOOL __stdcall HookedIsExecutableAddress(LPVOID pAddress)
+{
+	MEMORY_BASIC_INFORMATION mi;
+	VirtualQueryWrapper(pAddress, &mi, sizeof(mi));
+	return (mi.State == MEM_COMMIT && (mi.Protect & PAGE_EXECUTE_FLAGS));
+}
+
 void PostMappingInit(HMODULE hModule, PVOID lpArg)
 {
 	VirtualFree(lpArg, 0, MEM_RELEASE);
-	PIMAGE_NT_HEADERS ntHeaders = (PIMAGE_NT_HEADERS)(hModule + ((PIMAGE_DOS_HEADER)hModule)->e_lfanew);
-	DWORD oldProtect = 0;
-	VirtualProtect(hModule, ntHeaders->OptionalHeader.SizeOfImage, PAGE_EXECUTE_READ, &oldProtect);
 	EnableExceptions((DWORD64)hModule);
 	RegisterCustomLdrEntry(hModule);
 
+	PIMAGE_NT_HEADERS ntHeaders = (PIMAGE_NT_HEADERS)(((DWORD_PTR)hModule) + ((PIMAGE_DOS_HEADER)((DWORD_PTR)hModule))->e_lfanew);
 	ntdllBaseAddress = (LPVOID)GetModuleHandleA("ntdll.dll");
 	allocatedMemoryAddress = (LPVOID)hModule;
+	allocatedMemorySize = (SIZE_T)ntHeaders->OptionalHeader.SizeOfImage;
 
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
 	InstallHook("ntdll.dll", "NtQueryVirtualMemory", (LPVOID*)&OriginalNtQueryVirtualMemory, HookedNtQueryVirtualMemory);
+	InstallHook("ntdll.dll", "NtResumeThread", (LPVOID*)&OriginalNtResumeThread, HookedNtResumeThread);
+	DetourTransactionCommit();
+
+	DetourTransactionBegin();
+	DetourUpdateThread(GetCurrentThread());
+	pInstallHook((LPVOID)IsExecutableAddress, (LPVOID*)&OriginalIsExecutableAddress, HookedIsExecutableAddress);
 	DetourTransactionCommit();
 }
 
