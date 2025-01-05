@@ -1,7 +1,7 @@
 ﻿  Main.c
 C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\PinkEye_Shellcode\Main.c(37,21): warning C4047: 'initializing': 'uintptr_t' differs in levels of indirection from 'void *'
 C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\PinkEye_Shellcode\Main.c(62,16): warning C4047: '=': 'typedef_BERetFlag1' differs in levels of indirection from 'uintptr_t'
-C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\PinkEye_Shellcode\Main.c(64,16): warning C4047: '=': 'typedef_BERetFlag1' differs in levels of indirection from 'uintptr_t'
+C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\PinkEye_Shellcode\Main.c(68,16): warning C4047: '=': 'typedef_BERetFlag2' differs in levels of indirection from 'uintptr_t'
      Creating library C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\x64\Release\PinkEye_Shellcode.lib and object C:\Users\C5\source\repos\PinkEye Stuff\bababooi\PinkEye_Shellcode\x64\Release\PinkEye_Shellcode.exp
   Generating code
   2 of 14 functions (14.3%) were compiled, the rest were copied from previous compilation.

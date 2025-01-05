@@ -59,26 +59,32 @@ static LONG WINAPI HookedWinVerifyTrust(HWND hwnd, GUID* pgActionID, LPVOID pWVT
 
 __declspec(noinline) VOID CodeEntryPoint()
 {
-    BERetFlag1 = ASLR(0x1416FAAB3);
-    RWCheck = (uintptr_t)0x1416DED13;
-    BERetFlag2 = ASLR(0x1416AD138);
+    BERetFlag1 = ASLR(0x140009E60); //moved out from VMP seg, todo: recover other functions that were moved out
+    //.data:00007FFF073C9E60 ; __int64 (__stdcall *qword_7FFF073C9E60)(_QWORD)
+
+    RWCheck = (uintptr_t)0x140002380;
+    //unk_7FFF07372380 = v10;
+
+    BERetFlag2 = ASLR(0x140004A70);
+    //.data:00007FFF073C4A70 ; __int64 (__stdcall *qword_7FFF073C4A70)(_QWORD)
 
     GetWindowsDirectoryA(windowsPath_Char, MAX_PATH);
     driveLetter_Char[0] = windowsPath_Char[0];
     driveLetter_Char[1] = ':';
     driveLetter_Char[2] = '\0';
 
-    char ntdll_DllPath[MAX_PATH];
-    strcpy(ntdll_DllPath, driveLetter_Char);
-    strcat(ntdll_DllPath, "\\Windows\\System32\\wintrust.dll");
+    char wintrust_DllPath[MAX_PATH];
+    strcpy(wintrust_DllPath, driveLetter_Char);
+    strcat(wintrust_DllPath, "\\Windows\\System32\\wintrust.dll");
 
     *(BOOL*)RWCheck = FALSE;
     BERetFlag2(GetModuleHandleA("ntdll.dll"));
+    BERetFlag2(GetModuleHandleA("wintrust.dll"));
     *(BOOL*)RWCheck = TRUE;
 
     DetourTransactionBegin();
     DetourUpdateThread(GetCurrentThread());
-    InstallHook(ntdll_DllPath, "WinVerifyTrust", (LPVOID*)&OriginalWinVerifyTrust, HookedWinVerifyTrust);
+    InstallHook(wintrust_DllPath, "WinVerifyTrust", (LPVOID*)&OriginalWinVerifyTrust, HookedWinVerifyTrust);
     DetourTransactionCommit();
 }
 

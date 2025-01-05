@@ -206,7 +206,7 @@ static LPVOID PebGetProcAddress(DWORD moduleHash, DWORD functionHash)
 	return NULL;
 }
 
-EXTERN_C __declspec(dllexport) BOOL WINAPI SainanViolation(LPBYTE dllBase) //violate the mf
+EXTERN_C __declspec(dllexport) BOOL WINAPI SainanViolation(LPBYTE dllBase)
 {
 	NT_NTFLUSHINSTRUCTIONCACHE ntFlushInstructionCache = (NT_NTFLUSHINSTRUCTIONCACHE)PebGetProcAddress(0x3cfa685d, 0x534c0ab8);
 	NT_LOADLIBRARYA loadLibraryA = (NT_LOADLIBRARYA)PebGetProcAddress(0x6a4abc5b, 0xec0e4e8e);
